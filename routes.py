@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
-import modele.py
+import os
+# from modele.py import get_users
 
 app = Flask(__name__)
 
