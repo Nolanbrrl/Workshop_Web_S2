@@ -1,18 +1,23 @@
 from flask import Flask, render_template, request
+import modele.py
 
 app = Flask(__name__)
 
+
+
 @app.route('/')
 def connexion():
-    return render_template('connexion.html')
+        return render_template('connexion.html')
 
-@app.route('/<id_user>', methods=['POST'])
-def accueil_user(id_user, mot_de_passe):
-    if request.method == 'POST':
-        if id_user == 'id' and mot_de_passe == 'mdp':
-            return render_template('accueil.html', id_user_vue = id_user)
+@app.route('/<user_id>', methods=['GET'])
+def accueil_user(user_id):
+    if request.method == 'GET':
+        # if user_id == 'id' and user_password == 'mdp':
+        return render_template('accueil.html', id_user_vue = user_id)
     
 
-@app.route('/<id_user>/mon_espace', methods=['POST'])
-def page_user(id_user):
-    return render_template('mon_espace.html', id_user_vue = id_user)
+@app.route('/<user_id>/mon_espace', methods=['GET'])
+def page_user(user_id):
+    if request.method == 'GET':
+        return render_template('mon_espace.html', id_user_vue = user_id)
+

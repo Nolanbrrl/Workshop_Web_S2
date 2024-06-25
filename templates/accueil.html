@@ -4,52 +4,60 @@
         <title>Page d'accueil</title>
     </head>
     <body>
-        <div>
+        <div class="form_container">
             <h1>Bonjour {{id_user_vue}} !</h1>
-            <form action="" method="post"></form>
-            <div class="humeur_div">
-                <label for="humeur">Quelle est ton humeur du jour ?</label>
-                <input type="range" min="0" max="10">
-            </div>
-            <div class="sommeil_div">
-                <label for="sommeil">Combien d'heures as-tu dormi la nuit dernière ?</label>
-                <div class="sommeil_leger_div">
-                    <h2 class="titres_sommeil">sommeil léger</h2>
-                    <label for="moins_une_heure">moins d'1h</label>
-                    <input type="radio">
-                    <label for="une_heure">1h</label>
-                    <input type="radio">
-                    <label for="deux_heures">2h</label>
-                    <input type="radio">
-                    <label for="trois_heures">3h</label>
-                    <input type="radio">
-                    <label for="quatre_heures">4h</label>
-                    <input type="radio">
-                    <label for="cinq_heures">5h</label>
-                    <input type="radio">
+            <form action="/2/mon_espace" method="get">
+                <div class="humeur_div">
+                    <label for="humeur">Quelle est ton humeur du jour ?</label>
+                    <input type="range" min="0" max="10">
                 </div>
-                <div class="sommeil_reparateur">
-                    <h2 class="titres_sommeil">sommeil réparateur</h2>
-                    <label for="six_heures">6h</label>
-                    <input type="radio">
-                    <label for="sept_heures">7h</label>
-                    <input type="radio">
-                    <label for="huit_heures">8h</label>
-                    <input type="radio">
-                    <label for="neuf_heures">9h</label>
-                    <input type="radio">
+                <div class="sommeil_div">
+                    <label for="sommeil">Combien d'heures as-tu dormi la nuit dernière ?</label>
+                    <div class="sommeil_leger_div">
+                        <h2 class="titres_sommeil">sommeil léger</h2>
+                        <label for="moins_une_heure">moins d'1h</label>
+                        <input type="radio">
+                        <label for="une_heure">1h</label>
+                        <input type="radio">
+                        <label for="deux_heures">2h</label>
+                        <input type="radio">
+                        <label for="trois_heures">3h</label>
+                        <input type="radio">
+                        <label for="quatre_heures">4h</label>
+                        <input type="radio">
+                        <label for="cinq_heures">5h</label>
+                        <input type="radio">
+                    </div>
+                    <div class="sommeil_reparateur">
+                        <h2 class="titres_sommeil">sommeil réparateur</h2>
+                        <label for="six_heures">6h</label>
+                        <input type="radio">
+                        <label for="sept_heures">7h</label>
+                        <input type="radio">
+                        <label for="huit_heures">8h</label>
+                        <input type="radio">
+                        <label for="neuf_heures">9h</label>
+                        <input type="radio">
+                    </div>
+                    <div class="coma_profond">
+                        <h2 class="titres_sommeil">coma profond</h2>
+                        <label for="dix_heures">10h</label>
+                        <input type="radio">
+                        <label for="onze_heures">11h</label>
+                        <input type="radio">
+                        <label for="douze_heures">12h</label>
+                        <input type="radio">
+                    </div>
+                    <div class="comment">
+                        <h2 class="titres_sommeil">Un commentaire sur ta journée ?</h2>
+                        <label for="positive_comment">Commentaire positif :</label>
+                        <input type="text">
+                        <label for="negative_comment">Commentaire negatif :</label>
+                        <input type="text">
+                    </div>
+                    <input type="submit" value="Ecrire dans mon journal">
                 </div>
-                <div class="coma_">
-                    <h2 class="titres_sommeil">coma profond</h2>
-                    <label for="dix_heures">10h</label>
-                    <input type="radio">
-                    <label for="onze_heures">11h</label>
-                    <input type="radio">
-                    <label for="douze_heures">12h</label>
-                    <input type="radio">
-                </div>
-            </div>
-
+            </form>
         </div>
     </body>
 </html>
