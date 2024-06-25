@@ -32,3 +32,15 @@ def accueil_user():
         return render_template('connexion.html', erreur="identifiant ou mot de passe incorrect") 
       
 
+@app.route('/myspace/<user_id>', methods=['POST'])
+def results_user(user_id):
+    if request.method == 'POST':
+        mycursor.execute("SELECT AVG(day_mood) FROM DAY INNER JOIN USER ON DAY.user_id = USER.user_id WHERE USER.user_id = %s", (user_id,))
+        mood_avg = mycursor.fetchall()
+
+        mycursor.execute("SELECT MAX(day_mood) FROM DAY INNER JOIN USER ON DAY.user_id = USER.user_id WHERE USER.user_id = %s", (user_id,))
+        mood_max = mycursor.fetchall()
+
+        mycursor.execute("SELECT MIN(day_mood) FROM DAY INNER JOIN USER ON DAY.user_id = USER.user_id WHERE USER.user_id = %s", (user_id,))
+        mood_min = mycursor.fetchall()
+        return render_template('dailynotes.html', mood_avg=mood_avg, mood_max=mood_max, mood_min=mood_min)
