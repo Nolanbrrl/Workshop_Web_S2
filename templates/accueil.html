@@ -1,63 +1,201 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Page d'accueil</title>
-    </head>
-    <body>
-        <div class="form_container">
-            <h1>Bonjour {{id_user_vue}} !</h1>
-            <form action="/2/mon_espace" method="get">
-                <div class="humeur_div">
-                    <label for="humeur">Quelle est ton humeur du jour ?</label>
-                    <input type="range" min="0" max="10">
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+
+    <title>Document</title>
+
+    <!-- <script>
+        function toggleNewSection() {
+            var sportRadios = document.getElementsByName('sport');
+            var newSection = document.getElementById('new_section');
+            for (var i = 0; i < sportRadios.length; i++) {
+                if (sportRadios[i].checked && sportRadios[i].value === 'oui') {
+                    newSection.style.display = 'block';
+                    return;
+                }
+            }
+            newSection.style.display = 'none';
+        }
+
+        window.onload = function () {
+            var sportRadios = document.getElementsByName('sport');
+            for (var i = 0; i < sportRadios.length; i++) {
+                sportRadios[i].addEventListener('change', toggleNewSection);
+            }
+            // Initial call to set the visibility based on the default state
+            toggleNewSection();
+        };
+    </script> -->
+</head>
+
+<body>
+    <div>
+        <div class="sun_drawing"></div>
+        <h1>bonjour {{pseudo}}.</h1>
+        <form action="/" method="get">
+
+            <div class="humeur_div section_form">
+                <h2>quelle est ton humeur du jour ?</h2>
+                <div class="humeur_cursor_happy_sad">
+                    <div class="humeur_img_sad"></div>
+                    <input type="range" min="0" max="5" id="humeur" name="humeur">
+                    <div class="humeur_img_happy"></div>
                 </div>
-                <div class="sommeil_div">
-                    <label for="sommeil">Combien d'heures as-tu dormi la nuit dernière ?</label>
-                    <div class="sommeil_leger_div">
-                        <h2 class="titres_sommeil">sommeil léger</h2>
-                        <label for="moins_une_heure">moins d'1h</label>
-                        <input type="radio">
-                        <label for="une_heure">1h</label>
-                        <input type="radio">
-                        <label for="deux_heures">2h</label>
-                        <input type="radio">
-                        <label for="trois_heures">3h</label>
-                        <input type="radio">
-                        <label for="quatre_heures">4h</label>
-                        <input type="radio">
-                        <label for="cinq_heures">5h</label>
-                        <input type="radio">
+            </div>
+
+            <div class="sommeil_div section_form">
+                <h2 for="sommeil">combien d'heures as-tu dormi ?</h2>
+                <div class="sommeil_leger_div sommeil_type_div">
+                    <h3 class="titres_sommeil">sommeil léger</h3>
+                    <div class="form_radio_propositions">
+                        <div>
+                            <input type="radio" value="moins_une_heure" name="sommeil">
+                            <label for="moins_une_heure">moins d'1h</label>
+                        </div>
+                        <div>
+                            <input type="radio" value="une_heure" name="sommeil">
+                            <label for="une_heure">1h</label>
+                        </div>
+                        <div>
+                            <input type="radio" value="deux_heures" name="sommeil">
+                            <label for="deux_heures">2h</label>
+                        </div>
+                        <div>
+                            <input type="radio" value="trois_heures" name="sommeil">
+                            <label for="trois_heures">3h</label>
+                        </div>
+                        <div>
+                            <input type="radio" value="quatre_heures" name="sommeil">
+                            <label for="quatre_heures">4h</label>
+                        </div>
+                        <div>
+                            <input type="radio" value="cinq_heures" name="sommeil">
+                            <label for="cinq_heures">5h</label>
+                        </div>
                     </div>
-                    <div class="sommeil_reparateur">
-                        <h2 class="titres_sommeil">sommeil réparateur</h2>
-                        <label for="six_heures">6h</label>
-                        <input type="radio">
-                        <label for="sept_heures">7h</label>
-                        <input type="radio">
-                        <label for="huit_heures">8h</label>
-                        <input type="radio">
-                        <label for="neuf_heures">9h</label>
-                        <input type="radio">
-                    </div>
-                    <div class="coma_profond">
-                        <h2 class="titres_sommeil">coma profond</h2>
-                        <label for="dix_heures">10h</label>
-                        <input type="radio">
-                        <label for="onze_heures">11h</label>
-                        <input type="radio">
-                        <label for="douze_heures">12h</label>
-                        <input type="radio">
-                    </div>
-                    <div class="comment">
-                        <h2 class="titres_sommeil">Un commentaire sur ta journée ?</h2>
-                        <label for="positive_comment">Commentaire positif :</label>
-                        <input type="text">
-                        <label for="negative_comment">Commentaire negatif :</label>
-                        <input type="text">
-                    </div>
-                    <input type="submit" value="Ecrire dans mon journal">
                 </div>
-            </form>
-        </div>
-    </body>
+
+                <div class="sommeil_reparateur sommeil_type_div">
+                    <h3 class="titres_sommeil">sommeil réparateur</h3>
+                    <div class="form_radio_propositions">
+
+                        <div>
+                            <input type="radio" value="six_heures" name="sommeil">
+                            <label for="six_heures">6h</label>
+                        </div>
+                        <div>
+                            <input type="radio" value="sept_heures" name="sommeil">
+                            <label for="sept_heures">7h</label>
+                        </div>
+                        <div>
+                            <input type="radio" value="huit_heures" name="sommeil">
+                            <label for="huit_heures">8h</label>
+                        </div>
+                        <div>
+                            <input type="radio" value="neuf_heures" name="sommeil">
+                            <label for="neuf_heures">9h</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="coma_profond sommeil_type_div">
+                    <h3 class="titres_sommeil">coma profond</h3>
+                    <div class="form_radio_propositions">
+
+                        <div>
+                            <input type="radio" value="dix_heures" name="sommeil">
+                            <label for="dix_heures">10h</label>
+                        </div>
+                        <div>
+                            <input type="radio" value="onze_heures" name="sommeil">
+                            <label for="onze_heures">11h</label>
+                        </div>
+                        <div>
+                            <input type="radio" value="douze_heures" name="sommeil">
+                            <label for="douze_heures">12h</label>
+                        </div>
+                        <div>
+                            <input type="radio" value="plus_douze_heures" name="sommeil">
+                            <label for="plus_douze_heures">plus de 12h</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hydratation_div section_form">
+                <h2>combien de verres d'eau as-tu bu ?</h2>
+                <input type="range" min="0" max="10" id="verre_eau" name="verre_eau">
+            </div>
+
+            <div class="section_form physique_div">
+                <h2>as-tu fait du sport aujourd'hui ?</h2>
+                <div class="form_radio">
+                    <div>
+                        <div class="form_radio_propositions">
+                            <div>
+                                <input type="checkbox" value="football" name="sport" id="football">
+                                <label for="football">football</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" value="basketball" name="sport" id="basketball">
+                                <label for="basketball">basketball</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" value="course" name="sport" id="course">
+                                <label for="course">course</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" value="musculation" name="sport" id="musculation">
+                                <label for="musculation">musculation</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" value="tennis" name="sport" id="tennis">
+                                <label for="tennis">tennis</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" value="equitation" name="sport" id="equitation">
+                                <label for="equitation">équitation</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" value="golf" name="sport" id="golf">
+                                <label for="golf">golf</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" value="natation" name="sport" id="natation">
+                                <label for="natation">natation</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" value="danse" name="sport" id="danse">
+                                <label for="danse">danse</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" value="autre" name="sport" id="autre">
+                                <label for="autre">autre</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="new_section" class="section_form" style="display:none;">
+                <h2>combien de temps ? (en minutes)</h2>
+                <input type="text" name="activite_physique">
+            </div>
+            <div class="submit_section">
+                <input type="submit" value="envoyer." class="submit_button">
+            </div>
+
+        </form>
+</body>
+
 </html>
