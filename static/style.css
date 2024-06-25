@@ -1,0 +1,179 @@
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    background-color: #F1F1F1;
+    font-family: 'DM Sans', sans-serif;
+    color: #383838;
+}
+
+.sun_drawing {
+    position: absolute;
+    top: 10;
+    right: 10;
+    width: 10%;
+    height: 10%;
+    z-index: -1;
+
+}
+
+.erreur {
+    color: #F77878;
+    font-style: italic;
+    font-size: 0.9rem;
+    text-align: center;
+
+}
+label {
+    font-weight: 300;
+    font-size: 1rem;
+    font-style: italic;
+    margin-left: 1rem;
+}
+
+h1 {
+    font-size: 7rem;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 5rem;
+    margin-bottom: 3rem;
+}
+
+h2 {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.container_connexion {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    padding: 2rem;
+    width: 20%;
+    margin: 0 auto;
+    border-radius: 1rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.container_connexion form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.container_connexion form div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.container_connexion input {
+    border: none;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background-color: #F1F1F1;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.container_connexion input[type="submit"] {
+    background-color: #383838;
+    color: white;
+    cursor: pointer;
+    color: #F7E378;
+    transition: 0.2s ease;
+}
+
+.container_connexion input[type="submit"]:hover {
+    background-color: #F7E378;
+    color: #383838;
+    transition: 0.2s ease;
+}
+
+.section_form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 5rem 8rem;
+    background-color: white;
+    width: 50%;
+    margin: 2rem auto;
+    border-radius: 1rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.sommeil_type_div {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.form_radio_propositions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+input[type="range"] {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.humeur_cursor_happy_sad {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.humeur_img_sad {
+    min-width: 50px;
+    width: 50px;
+    height: 50px;
+    background: url('sad.png') no-repeat center center/cover;
+}
+
+.humeur_img_happy {
+    min-width: 50px;
+    width: 50px;
+    height: 50px;
+    background: url('happy.png') no-repeat center center/cover;
+    background-size: cover;
+}
+
+.submit_button {
+    background-color: white;
+    color: #383838;
+    cursor: pointer;
+    padding: 1rem 5rem;
+    border-radius: 0.5rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    transition: 0.2s ease;
+}
+
+.submit_button:hover {
+    background-color: #383838;
+    color: white;
+    transition: 0.2s ease;
+}
+
+.submit_section {
+    width: 50%;
+    margin: 2rem auto;
+    display: flex;
+    flex-direction: row-reverse;
+}

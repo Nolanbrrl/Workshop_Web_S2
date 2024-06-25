@@ -1,18 +1,40 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Page Connexion</title>
-        
-    </head>
-    <body>
-        <div class="container_connexion">
-            <form action="", method="post">
-                <label for="identifiant">Identifiant :</label>
-                <input type="text" name="identifiant">
-                <label for="mot_de_passe">Mot de passe :</label>
-                <input type="password" name="mot_de_passe">
-                <input type="submit" value="Connexion">
-            </form>
-        </div>
-    </body>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+
+    <title>Page Connexion</title>
+</head>
+
+<body>
+    <div class="sun_drawing"></div>
+    <h1>dailynotes.</h1>
+    <div class="container_connexion">
+        <h2>connexion.</h2>
+        <form action="/dailynotes" , method="POST">
+            <div>
+                <label for="identifiant">identifiant</label>
+                <input type="text" name="user_pseudo" required>
+            </div>
+            <div>
+                <label for="mot_de_passe">mot de passe</label>
+                <input type="password" name="user_password" required>
+            </div>
+            <input type="submit" value="connexion.">
+            {% if erreur %}
+            <p class="erreur">{{ erreur }}</p>
+            {% endif %}
+        </form>
+    </div>
+</body>
+
 </html>
