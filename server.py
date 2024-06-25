@@ -4,10 +4,10 @@ import mysql.connector
 app = Flask(__name__)
 
 mydb = mysql.connector.connect(
-    port="8889",
+    # port = 8889,
     host="localhost",
-    user="elea",
-    password="root",
+    user="root",
+    password="",
     database="dailynotes"
 )
 
