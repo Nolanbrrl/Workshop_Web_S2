@@ -19,14 +19,44 @@
 
 <body>
 
-    <h1>tableau de bord.</h1>
+    <h1>tableau de bord de {{pseudo}}.</h1>
     <div class="sun_drawing"></div>
 
     <nav>
         <a href="/{{pseudo}}/dailynotes/jour" class="button">aujourd'hui</a>
         <a href="/{{pseudo}}/dailynotes/semaine" class="button">cette semaine</a>
         <a href="/{{pseudo}}/dailynotes/mois" class="button selected">ce mois-ci</a>
+        <a href="/{{pseudo}}/dailynotes/start" class="button">depuis le début</a>
+
     </nav>
+
+    <section class="moods categories_dashboard">
+        <h2>mood.</h2>
+        <div>
+            <p>Votre humeur moyenne est de : {{avg_mood}} / 5</p>
+            <p>Vous avez ete le plus heureux de : {{max_mood}} / 5</p>
+            <p>Vous avez ete le plus malheureux : {{min_mood}} / 5</p>
+        </div>
+    </section>
+
+    <section class="sleep categories_dashboard">
+        <h2>sleep.</h2>
+        <p>Votre sommeil moyen est de : {{avg_sleep}}h</p>
+        <p>Vous avez ete le plus reposé de : {{max_sleep}}h</p>
+        <p>Vous avez ete le plus fatigué de : {{min_sleep}}h</p>
+    </section>
+
+    <section class="water categories_dashboard">
+        <h2>hydratation.</h2>
+        <p>Votre consommation moyenne d'eau est de : {{avg_water}} verres d'eau</p>
+        <p>Vous avez bu le plus de : {{max_water}} verres d'eau</p>
+        <p>Vous avez bu le moins de : {{min_water}} verres d'eau</p>
+    </section>
+
+    <section class="activity categories_dashboard">
+        <h2>activités.</h2>
+        <p>Votre activité préférée est : {{fav_activity}}</p>
+    </section>
 
 
 </body>

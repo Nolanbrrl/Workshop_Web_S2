@@ -86,7 +86,27 @@ def getDayId(user_id):
     mycursor.close()
     return day_id_result[0]
 
+def getCurrentDayInfo(pseudo):
+    mycursor = mydb.cursor()
+    query = "SELECT * FROM DAY INNER JOIN USER ON DAY.user_id = USER.user_id WHERE USER.user_pseudo = %s ORDER BY DAY.day_id DESC LIMIT 1"
+    values = (pseudo,)
+    mycursor.execute(query, values)
+    result = mycursor.fetchall()
+    mycursor.close()
+    if result :
+        return result
+    return None
 
+def getCurrentActivity(pseudo):
+    mycursor = mydb.cursor()
+    query = "SELECT activity_name FROM ACTIVITY INNER JOIN ACTIVITY_DAY ON ACTIVITY.activity_id = ACTIVITY_DAY.activity_id INNER JOIN DAY ON ACTIVITY_DAY.day_id = DAY.day_id INNER JOIN USER ON DAY.user_id = USER.user_id WHERE user_pseudo = %s ORDER BY DAY.day_id DESC LIMIT 1"
+    values = (pseudo,)
+    mycursor.execute(query, values)
+    result = mycursor.fetchall()
+    mycursor.close()
+    if result and result is not None:
+        return result
+    return None
 
 # -----------------------------------------------------------------------------------------------
 # |                                                                                             |
@@ -296,9 +316,308 @@ def getDayWaterMin(pseudo):
 def getFavActivity(pseudo):
     mycursor = mydb.cursor()
     query = "SELECT activity_name FROM ACTIVITY INNER JOIN ACTIVITY_DAY ON ACTIVITY.activity_id = ACTIVITY_DAY.activity_id INNER JOIN DAY ON ACTIVITY_DAY.day_id = DAY.day_id INNER JOIN USER ON DAY.user_id = USER.user_id WHERE USER.user_pseudo = %s GROUP BY activity_name ORDER BY COUNT(*) DESC LIMIT 1"
-    values = (pseudo)
+    values = (pseudo,)
+    mycursor.execute(query, values)
+    result = mycursor.fetchone()
+    mycursor.close()
+    if result and result[0] is not None:
+        return result[0]
+    return None
+
+# -----------------------------------------------------------------------------------------------
+# |                                                                                             |
+# ------------------------------------ MOOD / SEMAINE -------------------------------------------
+# |                                                                                             |
+# -----------------------------------------------------------------------------------------------
+
+
+# Votre humeur moyenne est de : 3.6667 /5
+def getAvgMoodWeek(pseudo):
+    mycursor = mydb.cursor()
+    query = "SELECT AVG(day_mood) FROM DAY INNER JOIN USER ON DAY.user_id = USER.user_id WHERE USER.user_pseudo = %s AND DAY.day_date >= CURDATE() - INTERVAL 7 DAY"
+    values = (pseudo,)
     mycursor.execute(query, values)
     result = mycursor.fetchall()
+    mycursor.close()
+    if result and result[0][0] is not None:
+        return result[0][0]
+    else :
+        return None
+
+# Vous avez ete le plus heureux (humeur de : 5.0 /5) le(s) jour(s) 2024-06-25
+def getMaxMoodWeek(pseudo) :
+    mycursor = mydb.cursor()
+    query = "SELECT MAX(day_mood) FROM DAY INNER JOIN USER ON DAY.user_id = USER.user_id WHERE USER.user_pseudo = %s AND DAY.day_date >= CURDATE() - INTERVAL 7 DAY"
+    values = (pseudo,)
+    mycursor.execute(query, values)
+    result = mycursor.fetchall()
+    mycursor.close()
+    if result and result[0][0] is not None:
+        return result[0][0]
+    return None
+
+# Vous avez ete le moins heureux (humeur de : 1.0 /5) le jour 2024-06-24
+def getMinMoodWeek(pseudo) :
+    mycursor = mydb.cursor()
+    query = "SELECT MIN(day_mood) FROM DAY INNER JOIN USER ON DAY.user_id = USER.user_id WHERE USER.user_pseudo = %s AND DAY.day_date >= CURDATE() - INTERVAL 7 DAY"
+    values = (pseudo,)
+    mycursor.execute(query, values)
+    result = mycursor.fetchall()
+    mycursor.close()
+    if result and result[0][0] is not None:
+        return result[0][0]
+    return None
+
+# -----------------------------------------------------------------------------------------------
+# |                                                                                             |
+# ------------------------------------ SLEEP / SEMAINE ----------------------------------------------
+# |                                                                                             |
+# -----------------------------------------------------------------------------------------------
+
+# Votre duree moyenne de sommeil est de : 8.3333h
+def getAvgSleepWeek(pseudo):
+    mycursor = mydb.cursor()
+    query = "SELECT AVG(day_sleep) FROM DAY INNER JOIN USER ON DAY.user_id = USER.user_id WHERE USER.user_pseudo = %s AND DAY.day_date >= CURDATE() - INTERVAL 7 DAY"
+    values = (pseudo,)
+    mycursor.execute(query, values)
+    result = mycursor.fetchall()
+    mycursor.close()
+    if result and result[0][0] is not None:
+        return result[0][0]
+    else :
+        return None
+
+# Vous avez dormi le plus (sommeil de : 12.0h) le jour 2024-06-26
+def getMaxSleepWeek(pseudo) :
+    mycursor = mydb.cursor()
+    query = "SELECT MAX(day_sleep) FROM DAY INNER JOIN USER ON DAY.user_id = USER.user_id WHERE USER.user_pseudo = %s AND DAY.day_date >= CURDATE() - INTERVAL 7 DAY"
+    values = (pseudo,)
+    mycursor.execute(query, values)
+    result = mycursor.fetchall()
+    mycursor.close()
+    if result and result[0][0] is not None:
+        return result[0][0]
+    return None
+
+# Vous avez dormi le moins (sommeil de : 6.0h) le jour2024-06-24
+def getMinSleepWeek(pseudo) :
+    mycursor = mydb.cursor()
+    query = "SELECT MIN(day_sleep) FROM DAY INNER JOIN USER ON DAY.user_id = USER.user_id WHERE USER.user_pseudo = %s AND DAY.day_date >= CURDATE() - INTERVAL 7 DAY"
+    values = (pseudo,)
+    mycursor.execute(query, values)
+    result = mycursor.fetchall()
+    mycursor.close()
+    if result and result[0][0] is not None:
+        return result[0][0]
+    return None
+
+# -----------------------------------------------------------------------------------------------
+# |                                                                                             |
+# ------------------------------------ WATER / SEMAINE ---------------------------------------------
+# |                                                                                             |
+# -----------------------------------------------------------------------------------------------
+
+# Votre hydratation moyenne est de : 4.0 verre(s) d'eau
+def getAvgWaterWeek(pseudo):
+    mycursor = mydb.cursor()
+    query = "SELECT AVG(day_drinks) FROM DAY INNER JOIN USER ON DAY.user_id = USER.user_id WHERE USER.user_pseudo = %s AND DAY.day_date >= CURDATE() - INTERVAL 7 DAY"
+    values = (pseudo,)
+    mycursor.execute(query, values)
+    result = mycursor.fetchall()
+    mycursor.close()
+    if result and result[0][0] is not None:
+        return result[0][0]
+    else :
+        return None
+    
+# Vous avez bu le plus (hydratation de : 6.0 verre(s) d'eau) le jour 2024-06-26
+def getMaxWaterWeek(pseudo) :
+    mycursor = mydb.cursor()
+    query = "SELECT MAX(day_drinks) FROM DAY INNER JOIN USER ON DAY.user_id = USER.user_id WHERE USER.user_pseudo = %s AND DAY.day_date >= CURDATE() - INTERVAL 7 DAY"
+    values = (pseudo,)
+    mycursor.execute(query, values)
+    result = mycursor.fetchall()
+    mycursor.close()
+    if result and result[0][0] is not None:
+        return result[0][0]
+    return None
+
+
+# Vous avez bu le moins (hydratation de : 2.0 verre(s) d'eau) le jour 2024-06-25
+def getMinWaterWeek(pseudo) :
+    mycursor = mydb.cursor()
+    query = "SELECT MIN(day_drinks) FROM DAY INNER JOIN USER ON DAY.user_id = USER.user_id WHERE USER.user_pseudo = %s AND DAY.day_date >= CURDATE() - INTERVAL 7 DAY"
+    values = (pseudo,)
+    mycursor.execute(query, values)
+    result = mycursor.fetchall()
+    mycursor.close()
+    if result and result[0][0] is not None:
+        return result[0][0]
+    return None
+
+# -----------------------------------------------------------------------------------------------
+# |                                                                                             |
+# ------------------------------------ ACTIVITIES / SEMAINE ----------------------------------------
+# |                                                                                             |
+# -----------------------------------------------------------------------------------------------
+
+# Votre activite preferee est : golf
+def getFavActivityWeek(pseudo):
+    mycursor = mydb.cursor()
+    query = "SELECT activity_name FROM ACTIVITY INNER JOIN ACTIVITY_DAY ON ACTIVITY.activity_id = ACTIVITY_DAY.activity_id INNER JOIN DAY ON ACTIVITY_DAY.day_id = DAY.day_id INNER JOIN USER ON DAY.user_id = USER.user_id WHERE USER.user_pseudo = %s AND DAY.day_date >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) GROUP BY activity_name ORDER BY COUNT(*) DESC LIMIT 1"
+    values = (pseudo,)
+    mycursor.execute(query, values)
+    result = mycursor.fetchone()
+    mycursor.close()
+    if result and result[0] is not None:
+        return result[0]
+    return None
+
+
+# -----------------------------------------------------------------------------------------------
+# |                                                                                             |
+# ------------------------------------ MOOD / MOIS -------------------------------------------
+# |                                                                                             |
+# -----------------------------------------------------------------------------------------------
+
+
+# Votre humeur moyenne est de : 3.6667 /5
+def getAvgMoodMonth(pseudo):
+    mycursor = mydb.cursor()
+    query = "SELECT AVG(day_mood) FROM DAY INNER JOIN USER ON DAY.user_id = USER.user_id WHERE USER.user_pseudo = %s AND DAY.day_date >= CURDATE() - INTERVAL 31 DAY"
+    values = (pseudo,)
+    mycursor.execute(query, values)
+    result = mycursor.fetchall()
+    mycursor.close()
+    if result and result[0][0] is not None:
+        return result[0][0]
+    else :
+        return None
+
+# Vous avez ete le plus heureux (humeur de : 5.0 /5) le(s) jour(s) 2024-06-25
+def getMaxMoodMonth(pseudo) :
+    mycursor = mydb.cursor()
+    query = "SELECT MAX(day_mood) FROM DAY INNER JOIN USER ON DAY.user_id = USER.user_id WHERE USER.user_pseudo = %s AND DAY.day_date >= CURDATE() - INTERVAL 31 DAY"
+    values = (pseudo,)
+    mycursor.execute(query, values)
+    result = mycursor.fetchall()
+    mycursor.close()
+    if result and result[0][0] is not None:
+        return result[0][0]
+    return None
+
+# Vous avez ete le moins heureux (humeur de : 1.0 /5) le jour 2024-06-24
+def getMinMoodMonth(pseudo) :
+    mycursor = mydb.cursor()
+    query = "SELECT MIN(day_mood) FROM DAY INNER JOIN USER ON DAY.user_id = USER.user_id WHERE USER.user_pseudo = %s AND DAY.day_date >= CURDATE() - INTERVAL 31 DAY"
+    values = (pseudo,)
+    mycursor.execute(query, values)
+    result = mycursor.fetchall()
+    mycursor.close()
+    if result and result[0][0] is not None:
+        return result[0][0]
+    return None
+
+# -----------------------------------------------------------------------------------------------
+# |                                                                                             |
+# ------------------------------------ SLEEP / MOIS ----------------------------------------------
+# |                                                                                             |
+# -----------------------------------------------------------------------------------------------
+
+# Votre duree moyenne de sommeil est de : 8.3333h
+def getAvgSleepMonth(pseudo):
+    mycursor = mydb.cursor()
+    query = "SELECT AVG(day_sleep) FROM DAY INNER JOIN USER ON DAY.user_id = USER.user_id WHERE USER.user_pseudo = %s AND DAY.day_date >= CURDATE() - INTERVAL 31 DAY"
+    values = (pseudo,)
+    mycursor.execute(query, values)
+    result = mycursor.fetchall()
+    mycursor.close()
+    if result and result[0][0] is not None:
+        return result[0][0]
+    else :
+        return None
+
+# Vous avez dormi le plus (sommeil de : 12.0h) le jour 2024-06-26
+def getMaxSleepMonth(pseudo) :
+    mycursor = mydb.cursor()
+    query = "SELECT MAX(day_sleep) FROM DAY INNER JOIN USER ON DAY.user_id = USER.user_id WHERE USER.user_pseudo = %s AND DAY.day_date >= CURDATE() - INTERVAL 31 DAY"
+    values = (pseudo,)
+    mycursor.execute(query, values)
+    result = mycursor.fetchall()
+    mycursor.close()
+    if result and result[0][0] is not None:
+        return result[0][0]
+    return None
+
+# Vous avez dormi le moins (sommeil de : 6.0h) le jour2024-06-24
+def getMinSleepMonth(pseudo) :
+    mycursor = mydb.cursor()
+    query = "SELECT MIN(day_sleep) FROM DAY INNER JOIN USER ON DAY.user_id = USER.user_id WHERE USER.user_pseudo = %s AND DAY.day_date >= CURDATE() - INTERVAL 31 DAY"
+    values = (pseudo,)
+    mycursor.execute(query, values)
+    result = mycursor.fetchall()
+    mycursor.close()
+    if result and result[0][0] is not None:
+        return result[0][0]
+    return None
+
+# -----------------------------------------------------------------------------------------------
+# |                                                                                             |
+# ------------------------------------ WATER / MOIS ---------------------------------------------
+# |                                                                                             |
+# -----------------------------------------------------------------------------------------------
+
+# Votre hydratation moyenne est de : 4.0 verre(s) d'eau
+def getAvgWaterMonth(pseudo):
+    mycursor = mydb.cursor()
+    query = "SELECT AVG(day_drinks) FROM DAY INNER JOIN USER ON DAY.user_id = USER.user_id WHERE USER.user_pseudo = %s AND DAY.day_date >= CURDATE() - INTERVAL 31 DAY"
+    values = (pseudo,)
+    mycursor.execute(query, values)
+    result = mycursor.fetchall()
+    mycursor.close()
+    if result and result[0][0] is not None:
+        return result[0][0]
+    else :
+        return None
+    
+# Vous avez bu le plus (hydratation de : 6.0 verre(s) d'eau) le jour 2024-06-26
+def getMaxWaterMonth(pseudo) :
+    mycursor = mydb.cursor()
+    query = "SELECT MAX(day_drinks) FROM DAY INNER JOIN USER ON DAY.user_id = USER.user_id WHERE USER.user_pseudo = %s AND DAY.day_date >= CURDATE() - INTERVAL 31 DAY"
+    values = (pseudo,)
+    mycursor.execute(query, values)
+    result = mycursor.fetchall()
+    mycursor.close()
+    if result and result[0][0] is not None:
+        return result[0][0]
+    return None
+
+
+# Vous avez bu le moins (hydratation de : 2.0 verre(s) d'eau) le jour 2024-06-25
+def getMinWaterMonth(pseudo) :
+    mycursor = mydb.cursor()
+    query = "SELECT MIN(day_drinks) FROM DAY INNER JOIN USER ON DAY.user_id = USER.user_id WHERE USER.user_pseudo = %s AND DAY.day_date >= CURDATE() - INTERVAL 31 DAY"
+    values = (pseudo,)
+    mycursor.execute(query, values)
+    result = mycursor.fetchall()
+    mycursor.close()
+    if result and result[0][0] is not None:
+        return result[0][0]
+    return None
+
+# -----------------------------------------------------------------------------------------------
+# |                                                                                             |
+# ------------------------------------ ACTIVITIES / MOIS ----------------------------------------
+# |                                                                                             |
+# -----------------------------------------------------------------------------------------------
+
+# Votre activite preferee est : golf
+def getFavActivityMonth(pseudo):
+    mycursor = mydb.cursor()
+    query = "SELECT activity_name FROM ACTIVITY INNER JOIN ACTIVITY_DAY ON ACTIVITY.activity_id = ACTIVITY_DAY.activity_id INNER JOIN DAY ON ACTIVITY_DAY.day_id = DAY.day_id INNER JOIN USER ON DAY.user_id = USER.user_id WHERE USER.user_pseudo = %s AND DAY.day_date >= DATE_SUB(CURDATE(), INTERVAL 31 DAY) GROUP BY activity_name ORDER BY COUNT(*) DESC LIMIT 1"
+    values = (pseudo,)
+    mycursor.execute(query, values)
+    result = mycursor.fetchone()
     mycursor.close()
     if result and result[0] is not None:
         return result[0]
