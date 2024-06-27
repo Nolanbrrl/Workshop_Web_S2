@@ -1,74 +1,209 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mon espace</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+
+    <link rel="shortcut icon" href="{{ url_for('static', filename='sun.png') }}" type="image/x-icon">
+
+    <title>dailynotes</title>
+
+    <!-- <script>
+        $(function () {
+            var output = document.querySelectorAll('output')[0];
+
+            $(document).on('input', 'input[type="range"]', function (e) {
+                output.innerHTML = e.currentTarget.value;
+            });
+
+            $('input[type=range]').rangeslider({
+                polyfill: false
+            });
+        });
+    </script> -->
 </head>
+
 <body>
-    <h1>Bonjour {{user_pseudo}} !</h1>
-    <div class="resultats">
-        <div class="humeur">
-            <h2 class="titre_mon_espace">Votre humeur moyenne est de : {{mood_avg}} /5</h2>
-            <h2 class="titre_mon_espace">Vous avez ete le plus heureux (humeur de : {{mood_max}} /5) le(s) jour(s) {{mood_max_days_date}}</h2>
-            <h2 class="titre_mon_espace">Vous avez ete le moins heureux (humeur de : {{mood_min}} /5) le jour {{mood_min_days_date}}</h2>
-        </div>
-        <div class="sommeil">
-            <h2 class="titre_mon_espace">Votre duree moyenne de sommeil est de : {{sleep_avg}}h</h2>
-            <h2 class="titre_mon_espace">Vous avez dormi le plus (sommeil de : {{sleep_max}}h) le jour {{sleep_max_days_date}}</h2>
-            <h2 class="titre_mon_espace">Vous avez dormi le moins (sommeil de : {{sleep_min}}h) le jour {{sleep_min_days_date}}</h2>
-        </div>
-        <div class="hydratation">
-            <h2 class="titre_mon_espace">Votre hydratation moyenne est de : {{drinks_avg}} verre(s) d'eau</h2>
-            <h2 class="titre_mon_espace">Vous avez bu le plus (hydratation de : {{drinks_max}} verre(s) d'eau) le jour {{drinks_max_days_date}}</h2>
-            <h2 class="titre_mon_espace">Vous avez bu le moins (hydratation de : {{drinks_min}} verre(s) d'eau) le jour {{drinks_min_days_date}}</h2>
-        </div>
-        <div class="activity">
-            <h2 class="titre_mon_espace">Votre activite preferee est : {{activity_fav}}</h2>
-            
-        </div>
-        <div class="week">
-            <h2 class="titre_mon_espace">Votre humeur moyenne cette semaine est de : {{mood_avg_week}} /5</h2>
-            <h2 class="titre_mon_espace">Vous avez ete le plus heureux (humeur de : {{mood_max_week}} /5) cette semaine</h2>
-            <h2 class="titre_mon_espace">Vous avez ete le moins heureux (humeur de : {{mood_min_week}} /5) cette semaine</h2>
-            
-            <h2 class="titre_mon_espace">Votre duree moyenne de sommeil est de : {{sleep_avg_week}}h cette semaine</h2>
-            <h2 class="titre_mon_espace">Vous avez dormi le plus (sommeil de : {{sleep_max_week}}h) cette semaine</h2>
-            <h2 class="titre_mon_espace">Vous avez dormi le moins (sommeil de : {{sleep_min_week}}h) cette semaine</h2>
-            
-            <h2 class="titre_mon_espace">Votre hydratation moyenne est de : {{drinks_avg_week}} verre(s) d'eau cette semaine</h2>
-            <h2 class="titre_mon_espace">Vous avez bu le plus (hydratation de : {{drinks_max_week}} verre(s) d'eau) cette semaine</h2>
-            <h2 class="titre_mon_espace">Vous avez bu le moins (hydratation de : {{drinks_min_week}} verre(s) d'eau) cette semaine</h2>
-            
-            <h2 class="titre_mon_espace">Votre activite preferee est : {{activity_fav_week}} cette semaine</h2>
-            
-        </div>
-        <div class="month">
-            <h2 class="titre_mon_espace">Votre humeur moyenne ce mois est de : {{mood_avg_month}} /5</h2>
-            <h2 class="titre_mon_espace">Vous avez ete le plus heureux (humeur de : {{mood_max_month}} /5) ce mois</h2>
-            <h2 class="titre_mon_espace">Vous avez ete le moins heureux (humeur de : {{mood_min_month}} /5) ce mois</h2>
-            
-            <h2 class="titre_mon_espace">Votre duree moyenne de sommeil est de : {{sleep_avg_month}}h ce mois</h2>
-            <h2 class="titre_mon_espace">Vous avez dormi le plus (sommeil de : {{sleep_max_month}}h) ce mois</h2>
-            <h2 class="titre_mon_espace">Vous avez dormi le moins (sommeil de : {{sleep_min_month}}h) ce mois</h2>
-            
-            <h2 class="titre_mon_espace">Votre hydratation moyenne est de : {{drinks_avg_month}} verre(s) d'eau ce mois</h2>
-            <h2 class="titre_mon_espace">Vous avez bu le plus (hydratation de : {{drinks_max_month}} verre(s) d'eau) ce mois</h2>
-            <h2 class="titre_mon_espace">Vous avez bu le moins (hydratation de : {{drinks_min_month}} verre(s) d'eau) ce mois</h2>
-        
-            <h2 class="titre_mon_espace">Votre activite preferee est : {{activity_fav_month}} ce mois</h2>
-            
-        </div>
-        <div class="current_day">
-            <h2 class="titre_mon_espace">Voici vos résultats du jour ({{current_day_date}}) : </h2>
-            <h2 class="titre_mon_espace">Votre humeur du jour est de : {{current_day_mood}} /5</h2>
-            <h2 class="titre_mon_espace">Votre duree de sommeil aujourd'hui est de : {{current_day_sleep}}h</h2>
-            <h2 class="titre_mon_espace">Votre hydratation du jour est de : {{current_day_drinks}} verre(s) d'eau</h2>
-            <h2 class="titre_mon_espace">Votre commentaire positif du jour est : {{current_day_comment_plus}}</h2>
-            <h2 class="titre_mon_espace">Votre commentaire negatif du jour est : {{current_day_comment_minus}}</h2>
-            <h2 class="titre_mon_espace">Votre activite du jour est : {{current_day_activity}}</h2>
-            
-        </div>
-    </div>
+    <div>
+        <div class="sun_drawing"></div>
+        <h1>bonjour {{pseudo}}.</h1>
+        <a href="/{{pseudo}}/dailynotes/jour">tableau de bord</a>
+        <form action="/{{pseudo}}/dailynotes/jour" method='POST'>
+            <div class="humeur_div section_form">
+                <h2>quelle est ton humeur du jour ?</h2>
+                <div class="humeur_cursor_happy_sad">
+                    <div class="humeur_img_sad"></div>
+                    <input type="range" min="0" max="5" id="mood" name="mood">
+                    <div class="humeur_img_happy"></div>
+                </div>
+            </div>
+
+            <div class="com_div section_form">
+                <h2>écris une chose positive que tu as retenue aujourd'hui</h2>
+                <textarea name="comment_plus" id="comment_plus" cols="30" rows="10"></textarea>
+            </div>
+
+            <div class="com_div section_form">
+                <h2>écris une chose négative que tu as retenue aujourd'hui</h2>
+                <textarea name="comment_minus" id="comment_minus" cols="30" rows="10"></textarea>
+            </div>
+
+            <div class="sommeil_div section_form">
+                <h2 for="sommeil">combien d'heures as-tu dormi ?</h2>
+                <div class="sommeil_leger_div sommeil_type_div">
+                    <h3 class="titres_sommeil">sommeil léger</h3>
+                    <div class="form_radio_propositions">
+                        <div>
+                            <input type="radio" value="0" name="sleep">
+                            <label for="0">moins d'1h</label>
+                        </div>
+                        <div>
+                            <input type="radio" value="1" name="sleep">
+                            <label for="1">1h</label>
+                        </div>
+                        <div>
+                            <input type="radio" value="2" name="sleep">
+                            <label for="2">2h</label>
+                        </div>
+                        <div>
+                            <input type="radio" value="3" name="sleep">
+                            <label for="3">3h</label>
+                        </div>
+                        <div>
+                            <input type="radio" value="4" name="sleep">
+                            <label for="4">4h</label>
+                        </div>
+                        <div>
+                            <input type="radio" value="5" name="sleep">
+                            <label for="5">5h</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sommeil_reparateur sommeil_type_div">
+                    <h3 class="titres_sommeil">sommeil réparateur</h3>
+                    <div class="form_radio_propositions">
+
+                        <div>
+                            <input type="radio" value="6" name="sleep">
+                            <label for="6">6h</label>
+                        </div>
+                        <div>
+                            <input type="radio" value="7" name="sleep" checked>
+                            <label for="7">7h</label>
+                        </div>
+                        <div>
+                            <input type="radio" value="8" name="sleep">
+                            <label for="8">8h</label>
+                        </div>
+                        <div>
+                            <input type="radio" value="9" name="sleep">
+                            <label for="9">9h</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="coma_profond sommeil_type_div">
+                    <h3 class="titres_sommeil">coma profond</h3>
+                    <div class="form_radio_propositions">
+
+                        <div>
+                            <input type="radio" value="10" name="sleep">
+                            <label for="10">10h</label>
+                        </div>
+                        <div>
+                            <input type="radio" value="11" name="sleep">
+                            <label for="11">11h</label>
+                        </div>
+                        <div>
+                            <input type="radio" value="12" name="sleep">
+                            <label for="12">12h</label>
+                        </div>
+                        <div>
+                            <input type="radio" value="13" name="sleep">
+                            <label for="13">plus de 12h</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hydratation_div  section_form">
+                <h2>combien de verres d'eau as-tu bu ?</h2>
+                <div class="glass_cursor_empty_full">
+                    <div class="glass_empty"></div>
+                    <input type="range" min="0" max="5" id="drinks" name="drinks">
+                    <div class="glass_full"></div>
+                </div>
+            </div>
+
+            <div class="section_form physique_div">
+                <h2>as-tu fait du sport aujourd'hui ?</h2>
+                <div class="form_radio">
+                    <div>
+                        <div class="form_radio_propositions">
+                            <div>
+                                <input type="checkbox" value="football" name="sport[]" id="football">
+                                <label for="football">football</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" value="basketball" name="sport[]" id="basketball">
+                                <label for="basketball">basketball</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" value="course" name="sport[]" id="course">
+                                <label for="course">course</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" value="musculation" name="sport[]" id="musculation">
+                                <label for="musculation">musculation</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" value="tennis" name="sport[]" id="tennis">
+                                <label for="tennis">tennis</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" value="equitation" name="sport[]" id="equitation">
+                                <label for="equitation">équitation</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" value="golf" name="sport[]" id="golf">
+                                <label for="golf">golf</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" value="natation" name="sport[]" id="natation">
+                                <label for="natation">natation</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" value="danse" name="sport[]" id="danse">
+                                <label for="danse">danse</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" value="autre" name="sport[]" id="autre">
+                                <label for="autre">autre</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <div id="new_section" class="section_form" style="display:none;">
+                <h2>combien de temps ? (en minutes)</h2>
+                <input type="text" name="activite_physique">
+            </div> -->
+
+            <div class="submit_section">
+                <input type="submit" value="envoyer." class="submit_button">
+            </div>
+
+        </form>
 </body>
+
 </html>

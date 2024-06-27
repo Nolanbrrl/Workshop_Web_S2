@@ -6,6 +6,21 @@
     box-sizing: border-box;
 }
 
+a {
+    text-decoration: none;
+    color: #383838;
+    margin-left: 25%;
+    background-image: linear-gradient(180deg, transparent 95%, #383838 0);
+    background-size: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size .3s ease;
+}
+
+a:hover {
+    background-size: 100% 100%;
+    cursor: pointer;
+}
+
 html {
     background-color: #F1F1F1;
     font-family: 'DM Sans', sans-serif;
@@ -13,13 +28,13 @@ html {
 }
 
 .sun_drawing {
-    position: absolute;
-    top: 10;
-    right: 10;
-    width: 10%;
-    height: 10%;
+    position: fixed;
+    right: 10vw;
+    top: 8vw;
+    width: 20vw;
+    height: 20vw;
     z-index: -1;
-
+    background: url("sun.png") no-repeat center center/cover;
 }
 
 .erreur {
@@ -29,6 +44,7 @@ html {
     text-align: center;
 
 }
+
 label {
     font-weight: 300;
     font-size: 1rem;
@@ -37,7 +53,7 @@ label {
 }
 
 h1 {
-    font-size: 7rem;
+    font-size: 6rem;
     font-weight: bold;
     text-align: center;
     margin-top: 5rem;
@@ -80,12 +96,17 @@ h3 {
 
 .container_connexion input {
     border: none;
-    padding: 1rem;
+    padding: 0.8rem 0;
     border-radius: 0.5rem;
     background-color: #F1F1F1;
     font-family: 'DM Sans', sans-serif;
     font-size: 1rem;
     font-weight: bold;
+}
+
+.container_connexion input[type="text"],
+.container_connexion input[type="password"] {
+    padding-left: 1rem;
 }
 
 .container_connexion input[type="submit"] {
@@ -94,11 +115,44 @@ h3 {
     cursor: pointer;
     color: #F7E378;
     transition: 0.2s ease;
+    width: 100%;
 }
 
 .container_connexion input[type="submit"]:hover {
     background-color: #F7E378;
     color: #383838;
+    transition: 0.2s ease;
+}
+
+.container_connexion .buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+}
+
+a.button {
+    text-align: center;
+    border: none;
+    padding: 0.8rem 0;
+    border-radius: 0.5rem;
+    background-color: #F1F1F1;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: bold;
+    background-color: #F7E378;
+    color: white;
+    cursor: pointer;
+    color: #383838;
+    transition: 0.2s ease;
+    margin-left: 0;
+    width: 100%;
+}
+
+a.button:hover {
+    background: #383838;
+    color: #F7E378;
     transition: 0.2s ease;
 }
 
@@ -131,7 +185,8 @@ input[type="range"] {
     margin: 0 auto;
 }
 
-.humeur_cursor_happy_sad {
+.humeur_cursor_happy_sad,
+.glass_cursor_empty_full {
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -142,6 +197,21 @@ input[type="range"] {
     width: 50px;
     height: 50px;
     background: url('sad.png') no-repeat center center/cover;
+}
+
+.glass_empty {
+    min-width: 50px;
+    width: 50px;
+    height: 50px;
+    background: url('empty_glass.png') no-repeat center center/cover;
+}
+
+.glass_full {
+    min-width: 50px;
+    width: 50px;
+    height: 50px;
+    background: url('full_glass.png') no-repeat center center/cover;
+    background-size: cover;
 }
 
 .humeur_img_happy {
@@ -176,4 +246,33 @@ input[type="range"] {
     margin: 2rem auto;
     display: flex;
     flex-direction: row-reverse;
+}
+
+nav {
+    width: 50%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+nav a {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+nav a.selected {
+    background-color: #383838;
+    color: #F7E378;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.categories_dashboard {
+    margin-top: 3rem;
+    width: 50%;
+    margin: 0 auto;
+}
+
+.categories_dashboard h2 {
+    text-align: left;
 }

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    
+    <link rel="shortcut icon" href="{{ url_for('static', filename='sun.png') }}" type="image/x-icon">
+
+    <title>dailynotes</title>
+</head>
+
+<body>
+
+    <h1>tableau de bord.</h1>
+    <div class="sun_drawing"></div>
+
+    <nav>
+        <a href="/{{pseudo}}/dailynotes/jour" class="button">aujourd'hui</a>
+        <a href="/{{pseudo}}/dailynotes/semaine" class="button selected">cette semaine</a>
+        <a href="/{{pseudo}}/dailynotes/mois" class="button">ce mois-ci</a>
+    </nav>
+
+
+</body>
+
+</html>
