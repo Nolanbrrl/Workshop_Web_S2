@@ -23,57 +23,39 @@
     <div class="sun_drawing"></div>
 
     <nav>
-        <a href="/{{pseudo}}/dailynotes/jour" class="button selected">aujourd'hui</a>
+        <a href="/{{pseudo}}/dailynotes/jour" class="button">aujourd'hui</a>
         <a href="/{{pseudo}}/dailynotes/semaine" class="button">cette semaine</a>
         <a href="/{{pseudo}}/dailynotes/mois" class="button">ce mois-ci</a>
-        <a href="/{{pseudo}}/dailynotes/start" class="button">depuis le début</a>
+        <a href="/{{pseudo}}/dailynotes/start" class="button selected">depuis le début</a>
     </nav>
-
-    <!-- [(36, '', '', 3, 3, 7, datetime.date(2024, 6, 26), 2, 2, 'aze', 'aze', 'aze', 'aze')] -->
-    <section class="day categories_dashboard">
-        <h2>jour.</h2>
-        <div>
-            <p>jour : {{current_day_infos[0][6]}}</p>
-        </div>
-    </section>
-
-    <section class="day categories_dashboard">
-        <h2>com +.</h2>
-        <div>
-            <p>{{current_day_infos[0][1]}}</p>
-        </div>
-    </section>
-
-    <section class="day categories_dashboard">
-        <h2>com -.</h2>
-        <div>
-            <p>{{current_day_infos[0][2]}}</p>
-        </div>
-    </section>
 
     <section class="moods categories_dashboard">
         <h2>mood.</h2>
         <div>
-            <p>mood : {{current_day_infos[0][3]}} / 5</p>
+            <p>Votre humeur moyenne est de : {{avg_mood}} / 5</p>
+            <p>Vous avez ete le plus heureux les {{day_max_mood}} de : {{max_mood}} / 5</p>
+            <p>Vous avez ete le plus malheureux les {{day_min_mood}} de : {{min_mood}} / 5</p>
         </div>
     </section>
 
     <section class="sleep categories_dashboard">
         <h2>sleep.</h2>
-        <p>sommeil : {{current_day_infos[0][5]}}h</p>
+        <p>Votre sommeil moyen est de : {{avg_sleep}}h</p>
+        <p>Vous avez ete le plus reposé les {{day_max_sleep}} de : {{max_sleep}}h</p>
+        <p>Vous avez ete le plus fatigué les {{day_min_sleep}} de : {{min_sleep}}h</p>
     </section>
 
     <section class="water categories_dashboard">
         <h2>hydratation.</h2>
-        <p>eau : {{current_day_infos[0][4]}} verres d'eau</p>
+        <p>Votre consommation moyenne d'eau est de : {{avg_water}} verres d'eau</p>
+        <p>Vous avez bu le plus les {{day_max_water}} de : {{max_water}} verres d'eau</p>
+        <p>Vous avez bu le moins les {{day_min_water}} de : {{min_water}} verres d'eau</p>
     </section>
 
     <section class="activity categories_dashboard">
         <h2>activités.</h2>
-        <p>activités : {{current_day_activities}}</p>
+        <p>Votre activité préférée est : {{fav_activity}}</p>
     </section>
-
-
 
 
 </body>
