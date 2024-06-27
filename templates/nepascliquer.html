@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+
+    <title>ne pas cliquer</title>
+</head>
+<body>
+        <h1>Bienvenue, Sylvain !!</h1>
+        <h2>Voici vos notes secrètes du jour :</h2>
+        <ul id="notes-list">
+        </ul>
+    
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    fetch('/api/dailynotes')
+                        .then(response => response.json())
+                        .then(data => {
+                            const notesList = document.getElementById('notes-list');
+                            for (const [key, value] of Object.entries(data)) {
+                                const listItem = document.createElement('li');
+                                listItem.textContent = `${key.replace(/_/g, ' ')}: ${value}`;
+                                notesList.appendChild(listItem);
+                            }
+                        })
+                        .catch(error => console.error('Erreur:', error));
+                });
+            </script>
+
+        <a href="/" class="button2">retour.</a>
+</body>
+
+</html>

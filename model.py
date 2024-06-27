@@ -634,7 +634,7 @@ def getFavActivityMonth(pseudo):
 def getCurrentDayMood(pseudo):
     mycursor = mydb.cursor()
     query = "SELECT day_mood FROM DAY INNER JOIN USER ON DAY.user_id = USER.user_id WHERE USER.user_pseudo = %s AND DAY.day_date = CURDATE()"
-    values = (pseudo)
+    values = (pseudo,)
     mycursor.execute(query, values)
     result = mycursor.fetchall()
     mycursor.close()
@@ -646,7 +646,7 @@ def getCurrentDayMood(pseudo):
 def getCurrentDayDrinks(pseudo):
     mycursor = mydb.cursor()
     query = "SELECT day_drinks FROM DAY INNER JOIN USER ON DAY.user_id = USER.user_id WHERE USER.user_pseudo = %s AND DAY.day_date = CURDATE()"
-    values = (pseudo)
+    values = (pseudo,)
     mycursor.execute(query, values)
     result = mycursor.fetchall()
     mycursor.close()
@@ -658,7 +658,7 @@ def getCurrentDayDrinks(pseudo):
 def getCurrentDaySleep(pseudo):
     mycursor = mydb.cursor()
     query = "SELECT day_sleep FROM DAY INNER JOIN USER ON DAY.user_id = USER.user_id WHERE USER.user_pseudo = %s AND DAY.day_date = CURDATE()"
-    values = (pseudo)
+    values = (pseudo,)
     mycursor.execute(query, values)
     result = mycursor.fetchall()
     mycursor.close()
@@ -670,7 +670,7 @@ def getCurrentDaySleep(pseudo):
 def getCurrentDayDate(pseudo):
     mycursor = mydb.cursor()
     query = "SELECT day_date FROM DAY INNER JOIN USER ON DAY.user_id = USER.user_id WHERE USER.user_pseudo = %s AND DAY.day_date = CURDATE()"
-    values = (pseudo)
+    values = (pseudo,)
     mycursor.execute(query, values)
     result = mycursor.fetchall()
     mycursor.close()
@@ -682,7 +682,7 @@ def getCurrentDayDate(pseudo):
 def getCurrentDayCommentPlus(pseudo):
     mycursor = mydb.cursor()
     query = "SELECT day_comment_plus FROM DAY INNER JOIN USER ON DAY.user_id = USER.user_id WHERE USER.user_pseudo = %s AND DAY.day_date = CURDATE()"
-    values = (pseudo)
+    values = (pseudo,)
     mycursor.execute(query, values)
     result = mycursor.fetchall()
     mycursor.close()
@@ -694,7 +694,7 @@ def getCurrentDayCommentPlus(pseudo):
 def getCurrentCommentMinus(pseudo):
     mycursor = mydb.cursor()
     query = "SELECT day_comment_minus FROM DAY INNER JOIN USER ON DAY.user_id = USER.user_id WHERE USER.user_pseudo = %s AND DAY.day_date = CURDATE()"
-    values = (pseudo)
+    values = (pseudo,)
     mycursor.execute(query, values)
     result = mycursor.fetchall()
     mycursor.close()
@@ -706,7 +706,7 @@ def getCurrentCommentMinus(pseudo):
 def getCurrentActivity(pseudo):
     mycursor = mydb.cursor()
     query = "SELECT activity_name FROM ACTIVITY INNER JOIN ACTIVITY_DAY ON ACTIVITY.activity_id = ACTIVITY_DAY.activity_id INNER JOIN DAY ON ACTIVITY_DAY.day_id = DAY.day_id INNER JOIN USER ON DAY.user_id = USER.user_id WHERE user_pseudo = %s AND DAY.day_date = CURDATE()"
-    values = (pseudo)
+    values = (pseudo,)
     mycursor.execute(query, values)
     result = mycursor.fetchall()
     mycursor.close()
@@ -718,10 +718,79 @@ def getCurrentActivity(pseudo):
 def getCurrentDayInfo(pseudo):
     mycursor = mydb.cursor()
     query = "SELECT * FROM DAY INNER JOIN USER ON DAY.user_id = USER.user_id WHERE USER.user_pseudo = %s AND DAY.day_date = CURDATE()"
-    values = (pseudo)
+    values = (pseudo,)
     mycursor.execute(query, values)
     result = mycursor.fetchall()
     mycursor.close()
     if result :
         return result
     return None
+
+# -----------------------------------------------------------------------------------------------
+# |                                                                                             |
+# ------------------------------------ DELETE --------------------------------------
+# |                                                                                             |
+# -----------------------------------------------------------------------------------------------
+
+# Supprime les notes du dernier jour rempli par user
+def deleteNotes(pseudo):
+    mycursor = mydb.cursor()
+    user_id = getInfoUser(pseudo)
+    day_id = getDayId(user_id)
+
+    if user_id is None:
+        return "User not found"
+    
+    if day_id is None:
+        day_id = "Day not found"
+
+    query = "DELETE FROM DAY WHERE user_id = %s AND day_id = %s"
+    mycursor.execute(query, (user_id, day_id))
+    
+    mydb.commit()
+    mycursor.close()
+
+# Supprime l'activité du dernier jour rempli par user
+def deleteActivities(pseudo, day_id=None):
+    mycursor = mydb.cursor()
+    user_id = getInfoUser(pseudo)
+    
+    if user_id is None:
+        return "User not found"
+    
+    if day_id is None:
+        day_id = getDayId(user_id)
+    
+    if day_id is None:
+        return "Day not found"
+    
+    query = "DELETE FROM ACTIVITY_DAY WHERE day_id = %s"
+    mycursor.execute(query, (day_id,))
+    
+    mydb.commit()
+    mycursor.close()
+
+
+# Cumul des deux fonctions
+def deleteDayInfo(pseudo, day_id=None):
+    deleteNotes(pseudo)
+    user_id= getInfoUser(pseudo)
+    day_id = getDayId(user_id)
+    deleteActivities(pseudo,day_id)
+
+# -----------------------------------------------------------------------------------------------
+# |                                                                                             |
+# ------------------------------------ PUT/MODIFICATION --------------------------------------
+# |                                                                                             |
+# -----------------------------------------------------------------------------------------------
+
+# Modifie l'activité du dernier jour rempli
+def modifierNotes(pseudo, day_id, new_comment_plus, new_comment_minus, new_mood, new_drinks, new_sleep):
+    deleteNotes(pseudo, day_id)
+    addNotes(pseudo, new_comment_plus, new_comment_minus, new_mood, new_drinks, new_sleep)
+
+
+# Modifie l'activité du dernier jour rempli
+def modifierActivities(pseudo, day_id, new_activities):
+    deleteActivities(pseudo, day_id)
+    addActivities(new_activities, pseudo)

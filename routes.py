@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 from model import *
 
 app = Flask(__name__)
@@ -208,3 +208,24 @@ def inscription_user():
     else :
         return render_template('inscription.html', erreur="erreur serveur")
 
+
+@app.route('/<pseudo>/dailynotes/nepascliquer', methods=['GET'])
+def affichage_json(pseudo):
+    return render_template('nepascliquer.html', pseudo=pseudo)
+
+@app.route('/api/dailynotes', methods=['GET'])
+def api_dailynotes():
+    data = {
+        'user_id': 2,
+        'pseudo': "Sylvain",
+        'mot_de_passe': "Tartiflette",
+        'day_id': 6,
+        'day_mood': 5,
+        'day_comment_plus': "Mon pigeon est beau.",
+        'day_comment_minus': "Au lieu de trouver des feutres, j'ai trouvé des dolipranes.",
+        'day_drinks': 4,
+        'day_sleep': 10,
+        'day_date': "2024-06-27",
+        "day_activity": "soutenances (c'est du sport)"
+    }
+    return jsonify(data)

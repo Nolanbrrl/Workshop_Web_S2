@@ -156,6 +156,7 @@ a.button:hover {
     transition: 0.2s ease;
 }
 
+
 .section_form {
     display: flex;
     flex-direction: column;
@@ -276,4 +277,28 @@ nav a.selected {
 
 .categories_dashboard h2 {
     text-align: left;
+}
+
+a.button2 {
+    text-align: center;
+    border: none;
+    padding: 2%;
+    border-radius: 0.5rem;
+    background-color: #F1F1F1;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: bold;
+    background-color: #F7E378;
+    color: white;
+    cursor: pointer;
+    color: #383838;
+    transition: 0.2s ease;
+    margin-left: 45%;
+    width: 100%;
+}
+
+a.button2:hover {
+    background: #383838;
+    color: #F7E378;
+    transition: 0.2s ease;
 }
