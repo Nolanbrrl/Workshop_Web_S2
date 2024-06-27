@@ -166,4 +166,4 @@ def inscription_user():
 
     else :
         return render_template('inscription.html', erreur="erreur serveur")
-    
+
