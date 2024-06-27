@@ -14,15 +14,23 @@
 
     <link rel="shortcut icon" href="{{ url_for('static', filename='sun.png') }}" type="image/x-icon">
 
-    <title>Page Connexion</title>
+    <title>inscription</title>
 </head>
 
 <body>
     <div class="sun_drawing"></div>
     <h1>dailynotes.</h1>
     <div class="container_connexion">
-        <h2>connexion.</h2>
-        <form action="/dailynotes" , method="POST">
+        <h2>inscription.</h2>
+        <form action="/inscription_user" , method="POST">
+            <div>
+                <label for="user_lastname">nom de famille</label>
+                <input type="text" name="user_lastname" required>
+            </div>
+            <div>
+                <label for="user_firstname">prénom</label>
+                <input type="text" name="user_firstname" required>
+            </div>
             <div>
                 <label for="identifiant">identifiant</label>
                 <input type="text" name="user_pseudo" required>
@@ -32,8 +40,8 @@
                 <input type="password" name="user_password" required>
             </div>
             <div class="buttons">
-                <a href="/inscription" class="button">s'inscrire.</a>
-                <input type="submit" value="connexion.">
+                <a href="/" class="button">se connecter.</a>
+                <input type="submit" value="inscription.">
             </div>
             {% if erreur %}
             <p class="erreur">{{ erreur }}</p>

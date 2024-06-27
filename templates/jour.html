@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+
+    <link rel="shortcut icon" href="{{ url_for('static', filename='sun.png') }}" type="image/x-icon">
+
+    <title>dailynotes</title>
+</head>
+
+<body>
+
+    <h1>tableau de bord.</h1>
+    <div class="sun_drawing"></div>
+
+    <nav>
+        <a href="/{{pseudo}}/dailynotes/jour" class="button selected">aujourd'hui</a>
+        <a href="/{{pseudo}}/dailynotes/semaine" class="button">cette semaine</a>
+        <a href="/{{pseudo}}/dailynotes/mois" class="button">ce mois-ci</a>
+    </nav>
+
+    <section class="moods categories_dashboard">
+        <h2>mood.</h2>
+        <div>
+            <p>Votre humeur moyenne est de : {{avg_mood}} / 5</p>
+            <p>Vous avez ete le plus heureux les {{day_max_mood}} de : {{max_mood}} / 5</p>
+            <p>Vous avez ete le plus malheureux les {{day_min_mood}} de : {{min_mood}} / 5</p>
+        </div>
+    </section>
+
+    <section class="sleep categories_dashboard">
+        <h2>sleep.</h2>
+        <p>Votre sommeil moyen est de : {{avg_sleep}}h</p>
+        <p>Vous avez ete le plus reposé les {{day_max_sleep}} de : {{max_sleep}}h</p>
+        <p>Vous avez ete le plus fatigué les {{day_min_sleep}} de : {{min_sleep}}h</p>
+    </section>
+
+    <section class="water categories_dashboard">
+        <h2>hydratation.</h2>
+        <p>Votre consommation moyenne d'eau est de : {{avg_water}} verres d'eau</p>
+        <p>Vous avez bu le plus les {{day_max_water}} de : {{max_water}} verres d'eau</p>
+        <p>Vous avez bu le moins les {{day_min_water}} de : {{min_water}} verres d'eau</p>
+    </section>
+
+    <section class="activity categories_dashboard">
+        <h2>activités.</h2>
+        <p>Votre activité préférée est : {{fav_activity}}</p>
+    </section>
+
+
+
+
+</body>
+
+</html>
