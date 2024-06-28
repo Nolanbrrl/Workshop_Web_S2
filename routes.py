@@ -1,6 +1,9 @@
-from flask import Flask, render_template, request, jsonify, session, redirect
+from flask import Flask, render_template, request, jsonify, session, redirect, send_file
 from flask_session import Session
 from model import *
+import matplotlib.pyplot as plt
+import io
+import base64
 
 app = Flask(__name__)
 app.config["SESSION_PERMANENT"] = False
@@ -56,32 +59,58 @@ def dailynotes(pseudo):
     # activities
     fav_activity = getFavActivity(pseudo)
 
+    # graphe
+    mycursor = mydb.cursor()
+    query = "SELECT day_mood FROM DAY INNER JOIN USER ON DAY.user_id = USER.user_id WHERE USER.user_pseudo = %s"
+    values = (pseudo,)
+    mycursor.execute(query, values)
+    result = mycursor.fetchall()
+    mycursor.close()
+    
+    if not result:
+        return "No data found", 404
+    
+    colors = ['#f77878', '#f7ad78', '#f7e378', '#78baf7', '#b7f778']
+    mood_counts = {}
+    for row in result:
+        mood = row[0]
+        if mood in mood_counts:
+            mood_counts[mood] += 1
+        else:
+            mood_counts[mood] = 1
+    
+    labels = list(mood_counts.keys())
+    sizes = list(mood_counts.values())
+    
+    fig, ax = plt.subplots()
+    ax.pie(sizes, labels=labels, colors=colors[:len(labels)], autopct='%1.1f%%', startangle=90)
+    ax.axis('equal')  
+
+    img = io.BytesIO()
+    plt.savefig(img, format='png')
+    img.seek(0)
+    graph_url = base64.b64encode(img.getvalue()).decode()
+    graph_url = 'data:image/png;base64,{}'.format(graph_url)
+    
     return render_template('start.html', 
-                            # mood
-                            pseudo=pseudo, 
-                            avg_mood=avg_mood,
-                            max_mood=max_mood,
-                            day_max_mood=day_max_mood,
-                            min_mood=min_mood,
-                            day_min_mood=day_min_mood,
-
-                            # sleep
-                            avg_sleep=avg_sleep,
-                            max_sleep=max_sleep,
-                            day_max_sleep=day_max_sleep,
-                            min_sleep=min_sleep,
-                            day_min_sleep=day_min_sleep,
-
-                            # water
-                            avg_water=avg_water,
-                            max_water=max_water,
-                            day_max_water=day_max_water,
-                            min_water=min_water,
-                            day_min_water=day_min_water,
-
-                            # activities
-                            fav_activity = fav_activity
-                            )
+                           pseudo=pseudo, 
+                           avg_mood=avg_mood,
+                           max_mood=max_mood,
+                           day_max_mood=day_max_mood,
+                           min_mood=min_mood,
+                           day_min_mood=day_min_mood,
+                           avg_sleep=avg_sleep,
+                           max_sleep=max_sleep,
+                           day_max_sleep=day_max_sleep,
+                           min_sleep=min_sleep,
+                           day_min_sleep=day_min_sleep,
+                           avg_water=avg_water,
+                           max_water=max_water,
+                           day_max_water=day_max_water,
+                           min_water=min_water,
+                           day_min_water=day_min_water,
+                           fav_activity=fav_activity,
+                           graph_url=graph_url)
     
 @app.route('/<pseudo>/dailynotes/jour', methods=['POST', 'GET'])
 def jour(pseudo):
@@ -239,3 +268,40 @@ def api_dailynotes():
         "day_activity": "soutenances (c'est du sport)"
     }
     return jsonify(data)
+
+@app.route('/<pseudo>/graphique', methods=['GET'])
+def graphe(pseudo):
+    if not pseudo:
+        return "Pseudo is required", 400
+    
+    mycursor = mydb.cursor()
+    query = "SELECT day_mood FROM DAY INNER JOIN USER ON DAY.user_id = USER.user_id WHERE USER.user_pseudo = %s"
+    values = (pseudo,)
+    mycursor.execute(query, values)
+    result = mycursor.fetchall()
+    mycursor.close()
+    
+    if not result:
+        return "No data found", 404
+    
+    colors = ['#f77878','#f7ad78','#f7e378','#78baf7', '#b7f778']
+    mood_counts = {}
+    for row in result:
+        mood = row[0]
+        if mood in mood_counts:
+            mood_counts[mood] += 1
+        else:
+            mood_counts[mood] = 1
+    
+    labels = list(mood_counts.keys())
+    sizes = list(mood_counts.values())
+    
+    fig, ax = plt.subplots()
+    ax.pie(sizes, labels=labels, colors=colors[:len(labels)], autopct='%1.1f%%', startangle=90)
+    ax.axis('equal')  
+
+    img = io.BytesIO()
+    plt.savefig(img, format='png')
+    img.seek(0)
+    
+    return send_file(img, mimetype='image/png')
