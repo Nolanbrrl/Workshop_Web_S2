@@ -11,6 +11,7 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 
+
 @app.route('/')
 def connexion():
     if not session.get("name"):
