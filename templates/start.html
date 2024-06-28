@@ -20,19 +20,19 @@
 <body>
 
     <h1>tableau de bord de {{pseudo}}.</h1>
-    {% block y %}
-        
-    {% if session.name %}
-        <a href="/logout">logout</a>.
-    {% else %}
-        You are not Register. <a href="/">login</a>.
-    {% endif %}
-    
-    {% endblock %}
+
     <div class="sun_drawing"></div>
 
-    <a href="/{{pseudo}}/dailynotes/nepascliquer">ne pas cliquer ici.</a>
-
+    <div class="logout_click">
+        <a href="/{{pseudo}}/dailynotes/nepascliquer">ne pas cliquer ici.</a>
+        {% block y %}
+        {% if session.name %}
+        <a href="/logout">logout.</a>
+        {% else %}
+        You are not Register. <a href="/login">login.</a>
+        {% endif %}
+        {% endblock %}
+    </div>
     <nav>
         <a href="/{{pseudo}}/dailynotes/jour" class="button">aujourd'hui</a>
         <a href="/{{pseudo}}/dailynotes/semaine" class="button">cette semaine</a>
@@ -72,8 +72,12 @@
         <p>Votre activité préférée est : {{fav_activity}}</p>
     </section>
 
-    
-    
+    <a href="/{{pseudo}}/dailynotes/nepascliquer" class="button">ne pas cliquer ici.</a>
+    <section class="graph categories_dashboard">
+        <h2>Graphe de vos humeurs</h2>
+        <img src="{{ graph_url }}" alt="Mood Chart">
+    </section>
+
 </body>
 
 </html>

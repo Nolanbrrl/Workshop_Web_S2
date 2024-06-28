@@ -1,9 +1,12 @@
 from flask import Flask, render_template, request, jsonify, session, redirect, send_file
 from flask_session import Session
 from model import *
+import matplotlib 
 import matplotlib.pyplot as plt
 import io
 import base64
+matplotlib.use('Agg')  # Utilise le backend 'Agg' qui ne nécessite pas d'interface graphique
+
 
 app = Flask(__name__)
 app.config["SESSION_PERMANENT"] = False
