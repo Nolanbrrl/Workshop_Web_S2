@@ -33,7 +33,6 @@ def accueil_user():
         return render_template('connexion.html', erreur="erreur serveur") 
 
 
-
 @app.route('/<pseudo>/dailynotes/start', methods=['POST', 'GET'])
 def dailynotes(pseudo):
     # mood
@@ -128,11 +127,12 @@ def jour(pseudo):
         drinks = request.form['drinks']
         sleep = request.form['sleep']
         activities = request.form.getlist('sport[]')
+
         addNotes(pseudo, comment_plus, comment_minus, mood, drinks, sleep)
         addActivities(activities, pseudo)
 
         current_day_infos = getCurrentDayInfo(pseudo)
-        current_day_activities = getCurrentActivity(pseudo)
+        current_day_activities = getCurrentDayActivity(pseudo)
 
         return render_template('jour.html', 
                                 pseudo=pseudo, 
@@ -141,9 +141,8 @@ def jour(pseudo):
                                )
     
     elif request.method == 'GET':
-
         current_day_infos = getCurrentDayInfo(pseudo)
-        current_day_activities = getCurrentActivity(pseudo)
+        current_day_activities = getCurrentDayActivity(pseudo)
 
         return render_template('jour.html', 
                                 pseudo=pseudo, 
@@ -276,3 +275,60 @@ def api_dailynotes():
     }
     return jsonify(data)
 
+@app.route('/<pseudo>/dailynotes/delete', methods=['GET'])
+def delete_user(pseudo):
+    deleteNotes(pseudo)
+    deleteActivities(pseudo)
+    current_day_infos = getCurrentDayInfo(pseudo)
+    current_day_activities = getCurrentDayActivity(pseudo)
+
+    return render_template('jour.html', 
+                            pseudo=pseudo, 
+                            current_day_infos=current_day_infos,
+                            current_day_activities=current_day_activities,
+                            )
+
+@app.route('/<pseudo>/dailynotes/update_form', methods=['GET'])
+def update_user_form(pseudo):
+    current_day_infos = getCurrentDayInfo(pseudo)
+    current_day_activities = getCurrentDayActivity(pseudo)
+
+    return render_template('dailynotes.html', 
+                            pseudo=pseudo, 
+                            current_day_infos=current_day_infos,
+                            current_day_activities=current_day_activities,
+                            )
+
+@app.route('/<pseudo>/dailynotes/update', methods=['POST', 'GET'])
+def update_user(pseudo):
+    if request.method == 'POST':
+        deleteNotes(pseudo)
+        deleteActivities(pseudo)
+        comment_plus = request.form['comment_plus']
+        comment_minus = request.form['comment_minus']
+        mood = request.form['mood']
+        drinks = request.form['drinks']
+        sleep = request.form['sleep']
+        activities = request.form.getlist('sport[]')
+
+        addNotes(pseudo, comment_plus, comment_minus, mood, drinks, sleep)
+        addActivities(activities, pseudo)
+
+        current_day_infos = getCurrentDayInfo(pseudo)
+        current_day_activities = getCurrentDayActivity(pseudo)
+
+        return render_template('jour.html', 
+                                pseudo=pseudo, 
+                                current_day_infos=current_day_infos,
+                                current_day_activities=current_day_activities,
+                               )
+    
+    elif request.method == 'GET':
+        current_day_infos = getCurrentDayInfo(pseudo)
+        current_day_activities = getCurrentDayActivity(pseudo)
+
+        return render_template('jour.html', 
+                                pseudo=pseudo, 
+                                current_day_infos=current_day_infos,
+                                current_day_activities=current_day_activities,
+                               )
