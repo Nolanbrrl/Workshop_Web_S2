@@ -84,7 +84,8 @@ def dailynotes(pseudo):
         else:
             mood_counts[mood] = 1
     
-    labels = list(mood_counts.keys())
+    legendes = ['content', 'pas content', 'un peu content', 'bof', 'un peu pas content']
+    labels = list(legendes)
     sizes = list(mood_counts.values())
     
     fig, ax = plt.subplots()
