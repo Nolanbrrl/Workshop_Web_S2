@@ -247,12 +247,13 @@ input[type="range"] {
     margin: 2rem auto;
     display: flex;
     flex-direction: row-reverse;
+    gap: 1rem;
 }
 
 nav {
     width: 60%;
     margin: 5rem auto;
-    margin-top: 0;
+    margin-top: 2rem;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -270,35 +271,74 @@ nav a.selected {
 }
 
 .categories_dashboard {
-    margin-top: 3rem;
     width: 50%;
-    margin: 0 auto;
+    margin: 2rem auto;
+    display: flex;
+    flex-direction: column;
+    padding: 3rem;
+    background-color: white;
+    border-radius: 1rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .categories_dashboard h2 {
     text-align: left;
 }
 
-a.button2 {
-    text-align: center;
-    border: none;
-    padding: 2%;
-    border-radius: 0.5rem;
-    background-color: #F1F1F1;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 1rem;
-    font-weight: bold;
-    background-color: #F7E378;
+.update_delete {
+    display: flex;
+    width: 50%;
+    justify-content: right;
+    flex-direction: row;
+    gap: 1rem !important;
+    margin: 0 auto;
     color: white;
-    cursor: pointer;
-    color: #383838;
-    transition: 0.2s ease;
-    margin-left: 45%;
-    width: 100%;
 }
 
-a.button2:hover {
-    background: #383838;
-    color: #F7E378;
+.button_update {
+    color: white;
+    margin: 0;
+    /* background: none; */
+    background: #78BAF7;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    padding: 0.8rem;
+    font-weight: bold;
     transition: 0.2s ease;
+}
+
+.button_update:hover {
+    transition: 0.2s ease;
+    background: #3c77af;
+}
+
+.button_delete {
+    color: white;
+    margin: 0;
+    background: #F77878;
+    /* background: none; */
+    border-radius: 0.5rem;
+    cursor: pointer;
+    padding: 0.8rem;
+    font-weight: bold;
+    transition: 0.2s ease;
+}
+
+.button_delete:hover {
+    transition: 0.2s ease;
+    background: #af3c3c;
+}
+
+.button_cancel {
+    color: white;
+    background: #383838 !important;
+    /* background: none; */
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.button_cancel:hover {
+    transition: 0.2s ease;
+    background: #ffffff !important;
+    color: #383838;
 }

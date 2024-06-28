@@ -31,179 +31,226 @@
     </script> -->
 </head>
 
+
 <body>
     <div>
         <div class="sun_drawing"></div>
         <h1>bonjour {{pseudo}}.</h1>
         <a href="/{{pseudo}}/dailynotes/jour">tableau de bord</a>
-        <form action="/{{pseudo}}/dailynotes/jour" method='POST'>
-            <div class="humeur_div section_form">
-                <h2>quelle est ton humeur du jour ?</h2>
-                <div class="humeur_cursor_happy_sad">
-                    <div class="humeur_img_sad"></div>
-                    <input type="range" min="0" max="5" id="mood" name="mood">
-                    <div class="humeur_img_happy"></div>
-                </div>
-            </div>
-
-            <div class="com_div section_form">
-                <h2>écris une chose positive que tu as retenue aujourd'hui</h2>
-                <textarea name="comment_plus" id="comment_plus" cols="30" rows="10"></textarea>
-            </div>
-
-            <div class="com_div section_form">
-                <h2>écris une chose négative que tu as retenue aujourd'hui</h2>
-                <textarea name="comment_minus" id="comment_minus" cols="30" rows="10"></textarea>
-            </div>
-
-            <div class="sommeil_div section_form">
-                <h2 for="sommeil">combien d'heures as-tu dormi ?</h2>
-                <div class="sommeil_leger_div sommeil_type_div">
-                    <h3 class="titres_sommeil">sommeil léger</h3>
-                    <div class="form_radio_propositions">
-                        <div>
-                            <input type="radio" value="0" name="sleep">
-                            <label for="0">moins d'1h</label>
-                        </div>
-                        <div>
-                            <input type="radio" value="1" name="sleep">
-                            <label for="1">1h</label>
-                        </div>
-                        <div>
-                            <input type="radio" value="2" name="sleep">
-                            <label for="2">2h</label>
-                        </div>
-                        <div>
-                            <input type="radio" value="3" name="sleep">
-                            <label for="3">3h</label>
-                        </div>
-                        <div>
-                            <input type="radio" value="4" name="sleep">
-                            <label for="4">4h</label>
-                        </div>
-                        <div>
-                            <input type="radio" value="5" name="sleep">
-                            <label for="5">5h</label>
-                        </div>
+        {% if current_day_infos %}
+        <form action="/{{pseudo}}/dailynotes/update" method='POST'>
+            {% else %}
+            <form action="/{{pseudo}}/dailynotes/jour" method='POST'>
+                {% endif %}
+                <div class="humeur_div section_form">
+                    <h2>quelle est ton humeur du jour ?</h2>
+                    <div class="humeur_cursor_happy_sad">
+                        <div class="humeur_img_sad"></div>
+                        <input type="range" min="0" max="5" id="mood" name="mood" {% if current_day_infos %}
+                            value="{{current_day_infos[0][3]}}" {% endif %}>
+                        <div class="humeur_img_happy"></div>
                     </div>
                 </div>
 
-                <div class="sommeil_reparateur sommeil_type_div">
-                    <h3 class="titres_sommeil">sommeil réparateur</h3>
-                    <div class="form_radio_propositions">
-
-                        <div>
-                            <input type="radio" value="6" name="sleep">
-                            <label for="6">6h</label>
-                        </div>
-                        <div>
-                            <input type="radio" value="7" name="sleep" checked>
-                            <label for="7">7h</label>
-                        </div>
-                        <div>
-                            <input type="radio" value="8" name="sleep">
-                            <label for="8">8h</label>
-                        </div>
-                        <div>
-                            <input type="radio" value="9" name="sleep">
-                            <label for="9">9h</label>
-                        </div>
-                    </div>
+                <div class="com_div section_form">
+                    <h2>écris une chose positive que tu as retenue aujourd'hui</h2>
+                    <textarea name="comment_plus" id="comment_plus" cols="30" rows="10">
+                    {% if current_day_infos %}{{current_day_infos[0][1]}}{% endif %}
+                </textarea>
                 </div>
 
-                <div class="coma_profond sommeil_type_div">
-                    <h3 class="titres_sommeil">coma profond</h3>
-                    <div class="form_radio_propositions">
-
-                        <div>
-                            <input type="radio" value="10" name="sleep">
-                            <label for="10">10h</label>
-                        </div>
-                        <div>
-                            <input type="radio" value="11" name="sleep">
-                            <label for="11">11h</label>
-                        </div>
-                        <div>
-                            <input type="radio" value="12" name="sleep">
-                            <label for="12">12h</label>
-                        </div>
-                        <div>
-                            <input type="radio" value="13" name="sleep">
-                            <label for="13">plus de 12h</label>
-                        </div>
-                    </div>
+                <div class="com_div section_form">
+                    <h2>écris une chose négative que tu as retenue aujourd'hui</h2>
+                    <textarea name="comment_minus" id="comment_minus" cols="30" rows="10">
+                    {% if current_day_infos %}{{current_day_infos[0][2]}}{% endif %}
+                </textarea>
                 </div>
-            </div>
 
-            <div class="hydratation_div  section_form">
-                <h2>combien de verres d'eau as-tu bu ?</h2>
-                <div class="glass_cursor_empty_full">
-                    <div class="glass_empty"></div>
-                    <input type="range" min="0" max="5" id="drinks" name="drinks">
-                    <div class="glass_full"></div>
-                </div>
-            </div>
-
-            <div class="section_form physique_div">
-                <h2>as-tu fait du sport aujourd'hui ?</h2>
-                <div class="form_radio">
-                    <div>
+                <div class="sommeil_div section_form">
+                    <h2 for="sommeil">combien d'heures as-tu dormi ?</h2>
+                    <div class="sommeil_leger_div sommeil_type_div">
+                        <h3 class="titres_sommeil">sommeil léger</h3>
                         <div class="form_radio_propositions">
                             <div>
-                                <input type="checkbox" value="football" name="sport[]" id="football">
-                                <label for="football">football</label>
+                                <input type="radio" value="0" name="sleep" {% if current_day_infos %} {% if
+                                    current_day_infos[0][5]==0 %} checked {% endif %} {% endif %}>
+                                <label for="0">moins d'1h</label>
                             </div>
                             <div>
-                                <input type="checkbox" value="basketball" name="sport[]" id="basketball">
-                                <label for="basketball">basketball</label>
+                                <input type="radio" value="1" name="sleep" {% if current_day_infos %}{% if
+                                    current_day_infos[0][5]==1 %} checked {% endif %}{% endif %}>
+                                <label for="1">1h</label>
                             </div>
                             <div>
-                                <input type="checkbox" value="course" name="sport[]" id="course">
-                                <label for="course">course</label>
+                                <input type="radio" value="2" name="sleep" {% if current_day_infos %}{% if
+                                    current_day_infos[0][5]==2 %} checked {% endif %}{% endif %}>
+                                <label for="2">2h</label>
                             </div>
                             <div>
-                                <input type="checkbox" value="musculation" name="sport[]" id="musculation">
-                                <label for="musculation">musculation</label>
+                                <input type="radio" value="3" name="sleep" {% if current_day_infos %}{% if
+                                    current_day_infos[0][5]==3 %} checked {% endif %}{% endif %}>
+                                <label for="3">3h</label>
                             </div>
                             <div>
-                                <input type="checkbox" value="tennis" name="sport[]" id="tennis">
-                                <label for="tennis">tennis</label>
+                                <input type="radio" value="4" name="sleep" {% if current_day_infos %}{% if
+                                    current_day_infos[0][5]==4 %} checked {% endif %}{% endif %}>
+                                <label for="4">4h</label>
                             </div>
                             <div>
-                                <input type="checkbox" value="equitation" name="sport[]" id="equitation">
-                                <label for="equitation">équitation</label>
+                                <input type="radio" value="5" name="sleep" {% if current_day_infos %}{% if
+                                    current_day_infos[0][5]==5 %} checked {% endif %}{% endif %}>
+                                <label for="5">5h</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sommeil_reparateur sommeil_type_div">
+                        <h3 class="titres_sommeil">sommeil réparateur</h3>
+                        <div class="form_radio_propositions">
+                            <div>
+                                <input type="radio" value="6" name="sleep" {% if current_day_infos %}{% if
+                                    current_day_infos[0][5]==6 %} checked {% endif %}{% endif %}>
+                                <label for="6">6h</label>
                             </div>
                             <div>
-                                <input type="checkbox" value="golf" name="sport[]" id="golf">
-                                <label for="golf">golf</label>
+                                <input type="radio" value="7" name="sleep" {% if current_day_infos %}{% if
+                                    current_day_infos[0][5]==7 %} checked {% endif %}{% endif %}checked>
+                                <label for="7">7h</label>
                             </div>
                             <div>
-                                <input type="checkbox" value="natation" name="sport[]" id="natation">
-                                <label for="natation">natation</label>
+                                <input type="radio" value="8" name="sleep" {% if current_day_infos %}{% if
+                                    current_day_infos[0][5]==8 %} checked {% endif %}{% endif %}>
+                                <label for="8">8h</label>
                             </div>
                             <div>
-                                <input type="checkbox" value="danse" name="sport[]" id="danse">
-                                <label for="danse">danse</label>
+                                <input type="radio" value="9" name="sleep" {% if current_day_infos %}{% if
+                                    current_day_infos[0][5]==9 %} checked {% endif %}{% endif %}>
+                                <label for="9">9h</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="coma_profond sommeil_type_div">
+                        <h3 class="titres_sommeil">coma profond</h3>
+                        <div class="form_radio_propositions">
+                            <div>
+                                <input type="radio" value="10" name="sleep" {% if current_day_infos %}{% if
+                                    current_day_infos[0][5]==10 %} checked {% endif %}{% endif %}>
+                                <label for="10">10h</label>
                             </div>
                             <div>
-                                <input type="checkbox" value="autre" name="sport[]" id="autre">
-                                <label for="autre">autre</label>
+                                <input type="radio" value="11" name="sleep" {% if current_day_infos %}{% if
+                                    current_day_infos[0][5]==11 %} checked {% endif %}{% endif %}>
+                                <label for="11">11h</label>
+                            </div>
+                            <div>
+                                <input type="radio" value="12" name="sleep" {% if current_day_infos %}{% if
+                                    current_day_infos[0][5]==12 %} checked {% endif %}{% endif %}>
+                                <label for="12">12h</label>
+                            </div>
+                            <div>
+                                <input type="radio" value="13" name="sleep" {% if current_day_infos %}{% if
+                                    current_day_infos[0][5]==13 %} checked {% endif %}{% endif %}>
+                                <label for="13">plus de 12h</label>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- <div id="new_section" class="section_form" style="display:none;">
+                <div class="hydratation_div  section_form">
+                    <h2>combien de verres d'eau as-tu bu ?</h2>
+                    <div class="glass_cursor_empty_full">
+                        <div class="glass_empty"></div>
+                        <input type="range" min="0" max="5" id="drinks" name="drinks" {% if current_day_infos %}
+                            value="{{current_day_infos[0][4]}}" {% endif %}>
+                        <div class="glass_full"></div>
+                    </div>
+                </div>
+
+                <div class="section_form physique_div">
+                    <h2>as-tu fait du sport aujourd'hui ?</h2>
+                    <div class="form_radio">
+                        <div>
+                            <div class="form_radio_propositions">
+                                <div>
+                                    <input type="checkbox" value="football" name="sport[]" id="football" {% if
+                                        current_day_activities %} {% if 'football' in current_day_activities[0] %} checked
+                                        {% endif %} {% endif %}>
+                                    <label for="football">football</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" value="basketball" name="sport[]" id="basketball" {% if
+                                        current_day_activities %} {% if 'basketball' in current_day_activities[0] %}
+                                        checked {% endif %} {% endif %}>
+                                    <label for="basketball">basketball</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" value="course" name="sport[]" id="course" {% if
+                                        current_day_activities %} {% if 'course' in current_day_activities[0] %} checked {%
+                                        endif %} {% endif %}>
+                                    <label for="course">course</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" value="musculation" name="sport[]" id="musculation" {% if
+                                        current_day_activities %} {% if 'musculation' in current_day_activities[0] %}
+                                        checked {% endif %} {% endif %}>
+                                    <label for="musculation">musculation</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" value="tennis" name="sport[]" id="tennis" {% if
+                                        current_day_activities %} {% if 'tennis' in current_day_activities[0] %} checked {%
+                                        endif %} {% endif %}>
+                                    <label for="tennis">tennis</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" value="equitation" name="sport[]" id="equitation" {% if
+                                        current_day_activities %} {% if 'equitation' in current_day_activities[0] %}
+                                        checked {% endif %} {% endif %}>
+                                    <label for="equitation">équitation</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" value="golf" name="sport[]" id="golf" {% if
+                                        current_day_activities %} {% if 'golf' in current_day_activities[0] %} checked {%
+                                        endif %} {% endif %}>
+                                    <label for="golf">golf</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" value="natation" name="sport[]" id="natation" {% if
+                                        current_day_activities %} {% if 'natation' in current_day_activities[0] %} checked
+                                        {% endif %} {% endif %}>
+                                    <label for="natation">natation</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" value="danse" name="sport[]" id="danse" {% if
+                                        current_day_activities %} {% if 'danse' in current_day_activities[0] %} checked {%
+                                        endif %} {% endif %}>
+                                    <label for="danse">danse</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" value="autre" name="sport[]" id="autre" {% if
+                                        current_day_activities %} {% if 'autre' in current_day_activities[0] %} checked {%
+                                        endif %} {% endif %}>
+                                    <label for="autre">autre</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div id="new_section" class="section_form" style="display:none;">
                 <h2>combien de temps ? (en minutes)</h2>
                 <input type="text" name="activite_physique">
             </div> -->
 
-            <div class="submit_section">
-                <input type="submit" value="envoyer." class="submit_button">
-            </div>
+                <div class="submit_section">
+                    <input type="submit" {% if current_day_infos %} value="modifier." {% else %} value="envoyer." {%
+                        endif %} class="submit_button">
+                    {% if current_day_infos %}
+                    <a href="/{{pseudo}}/dailynotes/jour" class="submit_button button_cancel">annuler.</a>
+                    {% endif %}
+                </div>
 
-        </form>
+            </form>
 </body>
 
 </html>

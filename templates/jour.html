@@ -22,6 +22,8 @@
     <h1>tableau de bord de {{pseudo}}.</h1>
     <div class="sun_drawing"></div>
 
+    <a href="/{{pseudo}}/dailynotes/nepascliquer">ne pas cliquer ici.</a>
+
     <nav>
         <a href="/{{pseudo}}/dailynotes/jour" class="button selected">aujourd'hui</a>
         <a href="/{{pseudo}}/dailynotes/semaine" class="button">cette semaine</a>
@@ -29,19 +31,24 @@
         <a href="/{{pseudo}}/dailynotes/start" class="button">depuis le début</a>
     </nav>
 
+    <div class="update_delete">
+        <a href="/{{pseudo}}/dailynotes/update_form" class="button_update">
+            modifier
+        </a>
+        <a href="/{{pseudo}}/dailynotes/delete" class="button_delete">
+            supprimer
+        </a>
+    </div>
+
     <!-- [(36, '', '', 3, 3, 7, datetime.date(2024, 6, 26), 2, 2, 'aze', 'aze', 'aze', 'aze')] -->
     <section class="day categories_dashboard">
         <h2>jour.</h2>
-        <div>
-            <p>jour : {{current_day_infos[0][6]}}</p>
-        </div>
+        <p>jour : {{current_day_infos[0][6]}}</p>
     </section>
 
     <section class="day categories_dashboard">
         <h2>com +.</h2>
-        <div>
-            <p>{{current_day_infos[0][1]}}</p>
-        </div>
+        <p>{{current_day_infos[0][1]}}</p>
     </section>
 
     <section class="day categories_dashboard">
@@ -72,9 +79,6 @@
         <h2>activités.</h2>
         <p>activités : {{current_day_activities}}</p>
     </section>
-
-
-    <a href="/{{pseudo}}/dailynotes/nepascliquer" class="button">ne pas cliquer ici.</a>
 
 </body>
 
