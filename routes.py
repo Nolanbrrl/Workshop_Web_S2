@@ -70,7 +70,12 @@ def dailynotes(pseudo):
     if not result:
         return "No data found", 404
     
-    colors = ['#f77878', '#f7ad78', '#f7e378', '#78baf7', '#b7f778']
+    red = '#f77878'
+    orange = '#f7ad78'
+    yellow = '#f7e378'
+    blue = '#78baf7'
+    green = '#b7f778'
+    colors = [green, red, blue, yellow, orange]
     mood_counts = {}
     for row in result:
         mood = row[0]
