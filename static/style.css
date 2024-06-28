@@ -342,6 +342,20 @@ nav a.selected {
     background: #ffffff !important;
     color: #383838;
 }
+
 img{
     align-self: center;
+}
+
+.logout_click {
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+    margin: 0 auto;
+    justify-content: space-between;
+}
+
+.logout_click a {
+    margin-left: 0;
+    width: fit-content;
 }

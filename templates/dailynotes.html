@@ -36,23 +36,23 @@
     <div>
         <div class="sun_drawing"></div>
         <h1>bonjour {{pseudo}}.</h1>
- 
-        
-        <a href="/{{pseudo}}/dailynotes/jour">tableau de bord</a>
-        {% block y %}
-    
-        {% if session.name %}
-            <a href="/logout">logout</a>.
-        {% else %}
-            You are not Register. <a href="/login">login</a>.
-        {% endif %}
-        
-        {% endblock %}
-        
+
+
+        <div class="logout_click">
+            <a href="/{{pseudo}}/dailynotes/jour">tableau de bord</a>
+            {% block y %}
+            {% if session.name %}
+            <a href="/logout">logout.</a>
+            {% else %}
+            You are not Register. <a href="/login">login.</a>
+            {% endif %}
+            {% endblock %}
+        </div>
+
         {% if current_day_infos %}
         <form action="/{{pseudo}}/dailynotes/update" method='POST'>
             {% else %}
-        <form action="/{{pseudo}}/dailynotes/jour" method='POST'>
+            <form action="/{{pseudo}}/dailynotes/jour" method='POST'>
                 {% endif %}
                 <div class="humeur_div section_form">
                     <h2>quelle est ton humeur du jour ?</h2>
@@ -186,8 +186,8 @@
                             <div class="form_radio_propositions">
                                 <div>
                                     <input type="checkbox" value="football" name="sport[]" id="football" {% if
-                                        current_day_activities %} {% if 'football' in current_day_activities[0] %} checked
-                                        {% endif %} {% endif %}>
+                                        current_day_activities %} {% if 'football' in current_day_activities[0] %}
+                                        checked {% endif %} {% endif %}>
                                     <label for="football">football</label>
                                 </div>
                                 <div>
@@ -198,8 +198,8 @@
                                 </div>
                                 <div>
                                     <input type="checkbox" value="course" name="sport[]" id="course" {% if
-                                        current_day_activities %} {% if 'course' in current_day_activities[0] %} checked {%
-                                        endif %} {% endif %}>
+                                        current_day_activities %} {% if 'course' in current_day_activities[0] %} checked
+                                        {% endif %} {% endif %}>
                                     <label for="course">course</label>
                                 </div>
                                 <div>
@@ -210,8 +210,8 @@
                                 </div>
                                 <div>
                                     <input type="checkbox" value="tennis" name="sport[]" id="tennis" {% if
-                                        current_day_activities %} {% if 'tennis' in current_day_activities[0] %} checked {%
-                                        endif %} {% endif %}>
+                                        current_day_activities %} {% if 'tennis' in current_day_activities[0] %} checked
+                                        {% endif %} {% endif %}>
                                     <label for="tennis">tennis</label>
                                 </div>
                                 <div>
@@ -222,26 +222,26 @@
                                 </div>
                                 <div>
                                     <input type="checkbox" value="golf" name="sport[]" id="golf" {% if
-                                        current_day_activities %} {% if 'golf' in current_day_activities[0] %} checked {%
-                                        endif %} {% endif %}>
+                                        current_day_activities %} {% if 'golf' in current_day_activities[0] %} checked
+                                        {% endif %} {% endif %}>
                                     <label for="golf">golf</label>
                                 </div>
                                 <div>
                                     <input type="checkbox" value="natation" name="sport[]" id="natation" {% if
-                                        current_day_activities %} {% if 'natation' in current_day_activities[0] %} checked
-                                        {% endif %} {% endif %}>
+                                        current_day_activities %} {% if 'natation' in current_day_activities[0] %}
+                                        checked {% endif %} {% endif %}>
                                     <label for="natation">natation</label>
                                 </div>
                                 <div>
                                     <input type="checkbox" value="danse" name="sport[]" id="danse" {% if
-                                        current_day_activities %} {% if 'danse' in current_day_activities[0] %} checked {%
-                                        endif %} {% endif %}>
+                                        current_day_activities %} {% if 'danse' in current_day_activities[0] %} checked
+                                        {% endif %} {% endif %}>
                                     <label for="danse">danse</label>
                                 </div>
                                 <div>
                                     <input type="checkbox" value="autre" name="sport[]" id="autre" {% if
-                                        current_day_activities %} {% if 'autre' in current_day_activities[0] %} checked {%
-                                        endif %} {% endif %}>
+                                        current_day_activities %} {% if 'autre' in current_day_activities[0] %} checked
+                                        {% endif %} {% endif %}>
                                     <label for="autre">autre</label>
                                 </div>
                             </div>
