@@ -25,7 +25,7 @@
     {% if session.name %}
         <a href="/logout">logout</a>.
     {% else %}
-        You are not Register. <a href="/login">login</a>.
+        You are not Register. <a href="/">login</a>.
     {% endif %}
     
     {% endblock %}
@@ -48,6 +48,10 @@
             <p>Vous avez ete le plus malheureux les {{day_min_mood}} de : {{min_mood}} / 5</p>
         </div>
     </section>
+    <section class="graph categories_dashboard">
+        <h2>Graphe de vos moods.</h2>
+        <img src="{{ graph_url }}" alt="Mood Chart">
+    </section>
 
     <section class="sleep categories_dashboard">
         <h2>sleep.</h2>
@@ -68,11 +72,7 @@
         <p>Votre activité préférée est : {{fav_activity}}</p>
     </section>
 
-    <a href="/{{pseudo}}/dailynotes/nepascliquer" class="button">ne pas cliquer ici.</a>
-    <section class="graph categories_dashboard">
-        <h2>Graphe de vos humeurs</h2>
-        <img src="{{ graph_url }}" alt="Mood Chart">
-    </section>
+    
     
 </body>
 

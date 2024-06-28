@@ -36,7 +36,7 @@ def accueil_user():
 @app.route('/<pseudo>/dailynotes/start', methods=['POST', 'GET'])
 def dailynotes(pseudo):
     # mood
-    avg_mood = int(getAvgMood(pseudo))
+    avg_mood = getAvgMood(pseudo)
     max_mood = getMaxMood(pseudo)
     day_max_mood = getDayMoodMax(pseudo)
     min_mood = getMinMood(pseudo)
@@ -248,7 +248,7 @@ def inscription_user():
         lastname = request.form['user_lastname']
         firstname = request.form['user_firstname']
         addUser(pseudo, password, lastname, firstname)
-        return render_template('dailynotes.html', pseudo=pseudo)
+        return render_template('connexion.html', pseudo=pseudo)
 
     else :
         return render_template('inscription.html', erreur="erreur serveur")

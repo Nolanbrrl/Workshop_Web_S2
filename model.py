@@ -3,10 +3,10 @@ from flask import Flask, render_template, request
 import mysql.connector
 
 mydb = mysql.connector.connect(
-    port="8889",
+    # port="8889",
     host="localhost",
     user="root",
-    password="root",
+    password="",
     database="dailynotes"
 )
 
