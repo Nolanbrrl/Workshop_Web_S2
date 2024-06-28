@@ -93,7 +93,7 @@ def dailynotes(pseudo):
     ax.axis('equal')  
 
     img = io.BytesIO()
-    plt.savefig(img, format='png')
+    plt.savefig(img, format='png', transparent= True)
     img.seek(0)
     graph_url = base64.b64encode(img.getvalue()).decode()
     graph_url = 'data:image/png;base64,{}'.format(graph_url)
@@ -275,39 +275,3 @@ def api_dailynotes():
     }
     return jsonify(data)
 
-@app.route('/<pseudo>/graphique', methods=['GET'])
-def graphe(pseudo):
-    if not pseudo:
-        return "Pseudo is required", 400
-    
-    mycursor = mydb.cursor()
-    query = "SELECT day_mood FROM DAY INNER JOIN USER ON DAY.user_id = USER.user_id WHERE USER.user_pseudo = %s"
-    values = (pseudo,)
-    mycursor.execute(query, values)
-    result = mycursor.fetchall()
-    mycursor.close()
-    
-    if not result:
-        return "No data found", 404
-    
-    colors = ['#f77878','#f7ad78','#f7e378','#78baf7', '#b7f778']
-    mood_counts = {}
-    for row in result:
-        mood = row[0]
-        if mood in mood_counts:
-            mood_counts[mood] += 1
-        else:
-            mood_counts[mood] = 1
-    
-    labels = list(mood_counts.keys())
-    sizes = list(mood_counts.values())
-    
-    fig, ax = plt.subplots()
-    ax.pie(sizes, labels=labels, colors=colors[:len(labels)], autopct='%1.1f%%', startangle=90)
-    ax.axis('equal')  
-
-    img = io.BytesIO()
-    plt.savefig(img, format='png')
-    img.seek(0)
-    
-    return send_file(img, mimetype='image/png')
