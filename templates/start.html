@@ -20,6 +20,15 @@
 <body>
 
     <h1>tableau de bord de {{pseudo}}.</h1>
+    {% block y %}
+        
+    {% if session.name %}
+        <a href="/logout">logout</a>.
+    {% else %}
+        You are not Register. <a href="/login">login</a>.
+    {% endif %}
+    
+    {% endblock %}
     <div class="sun_drawing"></div>
 
     <nav>

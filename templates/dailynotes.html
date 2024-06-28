@@ -35,6 +35,17 @@
     <div>
         <div class="sun_drawing"></div>
         <h1>bonjour {{pseudo}}.</h1>
+ 
+        {% block y %}
+        
+        {% if session.name %}
+            <a href="/logout">logout</a>.
+        {% else %}
+            You are not Register. <a href="/login">login</a>.
+        {% endif %}
+        
+        {% endblock %}
+
         <a href="/{{pseudo}}/dailynotes/jour">tableau de bord</a>
         <form action="/{{pseudo}}/dailynotes/jour" method='POST'>
             <div class="humeur_div section_form">
