@@ -44,27 +44,27 @@
         <h2>mood.</h2>
         <div>
             <p>Votre humeur moyenne est de : {{avg_mood}} / 5</p>
-            <p>Vous avez ete le plus heureux les {{day_max_mood}} de : {{max_mood}} / 5</p>
-            <p>Vous avez ete le plus malheureux les {{day_min_mood}} de : {{min_mood}} / 5</p>
+            <p>Vous avez ete le plus heureux le {{day_max_mood}} de : {{max_mood}} / 5</p>
+            <p>Vous avez ete le plus malheureux le {{day_min_mood}} de : {{min_mood}} / 5</p>
         </div>
     </section>
     <section class="graph categories_dashboard">
-        <h2>Graphe de vos moods.</h2>
+        <h2>graphe de vos moods.</h2>
         <img src="{{ graph_url }}" alt="Mood Chart">
     </section>
 
     <section class="sleep categories_dashboard">
         <h2>sleep.</h2>
         <p>Votre sommeil moyen est de : {{avg_sleep}}h</p>
-        <p>Vous avez ete le plus reposé les {{day_max_sleep}} de : {{max_sleep}}h</p>
-        <p>Vous avez ete le plus fatigué les {{day_min_sleep}} de : {{min_sleep}}h</p>
+        <p>Vous avez ete le plus reposé le {{day_max_sleep}} de : {{max_sleep}}h</p>
+        <p>Vous avez ete le plus fatigué le {{day_min_sleep}} de : {{min_sleep}}h</p>
     </section>
 
     <section class="water categories_dashboard">
         <h2>hydratation.</h2>
         <p>Votre consommation moyenne d'eau est de : {{avg_water}} verres d'eau</p>
-        <p>Vous avez bu le plus les {{day_max_water}} de : {{max_water}} verres d'eau</p>
-        <p>Vous avez bu le moins les {{day_min_water}} de : {{min_water}} verres d'eau</p>
+        <p>Vous avez bu le plus le {{day_max_water}} de : {{max_water}} verres d'eau</p>
+        <p>Vous avez bu le moins le {{day_min_water}} de : {{min_water}} verres d'eau</p>
     </section>
 
     <section class="activity categories_dashboard">
@@ -72,11 +72,6 @@
         <p>Votre activité préférée est : {{fav_activity}}</p>
     </section>
 
-    <a href="/{{pseudo}}/dailynotes/nepascliquer" class="button">ne pas cliquer ici.</a>
-    <section class="graph categories_dashboard">
-        <h2>Graphe de vos humeurs</h2>
-        <img src="{{ graph_url }}" alt="Mood Chart">
-    </section>
 
 </body>
 
