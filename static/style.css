@@ -302,3 +302,7 @@ a.button2:hover {
     color: #F7E378;
     transition: 0.2s ease;
 }
+
+img{
+    align-self: center;
+}
